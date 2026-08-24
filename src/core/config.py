@@ -72,6 +72,10 @@ class Settings(BaseSettings):
     pinecone_cloud: str = Field(default="aws", alias="PINECONE_CLOUD")
     pinecone_region: str = Field(default="us-east-1",alias="PINECONE_REGION")
 
+    # The URL stays in .env and is deliberately never logged. The database
+    # layer validates that it is present before constructing an engine.
+    database_url: str = Field(default="", alias="DATABASE_URL")
+
     
 
     data_dir : Path = Field(default=Path("data"),alias="DATA_DIR")
