@@ -1,0 +1,18 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+.env
+venv/
+# .env is already ignored above. Keep an example file trackable.
+!.env.example
+# Fetched transcripts and eval output: reproducible, and large.
+data/
+evals/results/
+.deepeval

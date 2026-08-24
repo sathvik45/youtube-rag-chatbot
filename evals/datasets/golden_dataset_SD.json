@@ -1,0 +1,5367 @@
+[
+ {
+  "id": "q001",
+  "query": "difference between git merge and git rebase",
+  "scope": [
+   "0chZFIZLR_0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "0chZFIZLR_0",
+    "start_ms": 81720,
+    "end_ms": 106500
+   }
+  ],
+  "query_type": "comparison",
+  "note": "the two definitions back to back"
+ },
+ {
+  "id": "q002",
+  "query": "merge vs rebase",
+  "scope": [
+   "0chZFIZLR_0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "0chZFIZLR_0",
+    "start_ms": 81720,
+    "end_ms": 106500
+   }
+  ],
+  "query_type": "terse",
+  "note": "terse rewrite of q001 -- gap between the two is the jargon-echo signal"
+ },
+ {
+  "id": "q003",
+  "query": "what are all the ways to get a feature branch into main",
+  "scope": [
+   "0chZFIZLR_0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "0chZFIZLR_0",
+    "start_ms": 115740,
+    "end_ms": 134580
+   },
+   {
+    "video_id": "0chZFIZLR_0",
+    "start_ms": 135180,
+    "end_ms": 151020
+   },
+   {
+    "video_id": "0chZFIZLR_0",
+    "start_ms": 153300,
+    "end_ms": 167820
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "THE key case: hit=True while coverage=0.33 is a silent failure"
+ },
+ {
+  "id": "q004",
+  "query": "what do you lose when you squash commits",
+  "scope": [
+   "0chZFIZLR_0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "0chZFIZLR_0",
+    "start_ms": 167820,
+    "end_ms": 175000
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q005",
+  "query": "why does github recommend squashing",
+  "scope": [
+   "0chZFIZLR_0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "0chZFIZLR_0",
+    "start_ms": 176160,
+    "end_ms": 191460
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q006",
+  "query": "should i squash",
+  "scope": [
+   "0chZFIZLR_0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "0chZFIZLR_0",
+    "start_ms": 226080,
+    "end_ms": 240300
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q007",
+  "query": "how do i resolve a merge conflict",
+  "scope": [
+   "0chZFIZLR_0"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "topically adjacent, never covered -- correct answer is to return nothing"
+ },
+ {
+  "id": "q008",
+  "query": "what is a fast forward merge",
+  "scope": [
+   "0chZFIZLR_0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "0chZFIZLR_0",
+    "start_ms": 135180,
+    "end_ms": 151020
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q009",
+  "query": "the rope analogy",
+  "scope": [
+   "0chZFIZLR_0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "0chZFIZLR_0",
+    "start_ms": 123000,
+    "end_ms": 134580
+   },
+   {
+    "video_id": "0chZFIZLR_0",
+    "start_ms": 147000,
+    "end_ms": 151020
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "metaphor spans two separate places"
+ },
+ {
+  "id": "q010",
+  "query": "keeping my branch up to date with main",
+  "scope": [
+   "0chZFIZLR_0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "0chZFIZLR_0",
+    "start_ms": 70980,
+    "end_ms": 106500
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "distinct from merging BACK into main -- tests whether retrieval separates the two directions"
+ },
+ {
+  "id": "q011",
+  "query": "where does my code actually live in git",
+  "scope": [
+   "e9lnsKot_SQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "e9lnsKot_SQ",
+    "start_ms": 43200,
+    "end_ms": 70239
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the four locations enumerated back to back"
+ },
+ {
+  "id": "q012",
+  "query": "what two commands does git pull combine",
+  "scope": [
+   "e9lnsKot_SQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "e9lnsKot_SQ",
+    "start_ms": 165600,
+    "end_ms": 174840
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q013",
+  "query": "git add",
+  "scope": [
+   "e9lnsKot_SQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "e9lnsKot_SQ",
+    "start_ms": 103080,
+    "end_ms": 117720
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q014",
+  "query": "how do i rebase my branch onto main",
+  "scope": [
+   "e9lnsKot_SQ"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "this video only points at a separate rebase video (214160-225800); a retriever that scores that pointer as an answer is wrong"
+ },
+ {
+  "id": "q015",
+  "query": "why do companies put kafka between their services instead of calling each other directly",
+  "scope": [
+   "7_wkWQ9rB5I"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "7_wkWQ9rB5I",
+    "start_ms": 21199,
+    "end_ms": 42399
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "ASR renders Kafka as CFKA throughout this video -- a lexical retriever matching on 'kafka' scores zero here"
+ },
+ {
+  "id": "q016",
+  "query": "kafka decoupling",
+  "scope": [
+   "7_wkWQ9rB5I"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "7_wkWQ9rB5I",
+    "start_ms": 21199,
+    "end_ms": 42399
+   }
+  ],
+  "query_type": "terse",
+  "note": "terse pair for q015; same span, no lexical overlap with the CFKA transcript"
+ },
+ {
+  "id": "q017",
+  "query": "what happens when you pick a bad partition key",
+  "scope": [
+   "7_wkWQ9rB5I"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "7_wkWQ9rB5I",
+    "start_ms": 150959,
+    "end_ms": 192720
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "hot partitions + the compound-key fix; ASR writes 'petitions' for partitions"
+ },
+ {
+  "id": "q018",
+  "query": "kafka delivery guarantees",
+  "scope": [
+   "7_wkWQ9rB5I"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "7_wkWQ9rB5I",
+    "start_ms": 249040,
+    "end_ms": 263840
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q019",
+  "query": "when is kafka the wrong choice",
+  "scope": [
+   "7_wkWQ9rB5I"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "7_wkWQ9rB5I",
+    "start_ms": 332000,
+    "end_ms": 375759
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q020",
+  "query": "how do i lock down kafka with acls and tls",
+  "scope": [
+   "7_wkWQ9rB5I",
+   "UNUz1-msbOM",
+   "HZklgPkboro",
+   "yIAcHMJzqJc",
+   "Ajz6dBp_EB4",
+   "-RDyEFvnTXI",
+   "x4k1XEjNzYQ"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "seven Kafka videos in scope and none of them covers Kafka security -- correct answer is to return nothing"
+ },
+ {
+  "id": "q021",
+  "query": "why is sequential disk access so much faster than random access",
+  "scope": [
+   "UNUz1-msbOM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UNUz1-msbOM",
+    "start_ms": 65680,
+    "end_ms": 104880
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q022",
+  "query": "how many times is the data copied when zero copy is not used",
+  "scope": [
+   "UNUz1-msbOM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UNUz1-msbOM",
+    "start_ms": 194160,
+    "end_ms": 233040
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q023",
+  "query": "sendfile",
+  "scope": [
+   "UNUz1-msbOM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UNUz1-msbOM",
+    "start_ms": 240240,
+    "end_ms": 261600
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q024",
+  "query": "why is kafka fast",
+  "scope": [
+   "UNUz1-msbOM",
+   "7_wkWQ9rB5I"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UNUz1-msbOM",
+    "start_ms": 58320,
+    "end_ms": 104880
+   },
+   {
+    "video_id": "UNUz1-msbOM",
+    "start_ms": 156480,
+    "end_ms": 194160
+   },
+   {
+    "video_id": "7_wkWQ9rB5I",
+    "start_ms": 93759,
+    "end_ms": 113479
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "cross-video: the two design reasons live in one video, the throughput numbers in another"
+ },
+ {
+  "id": "q025",
+  "query": "kafka limitations and when not to use it",
+  "scope": [
+   "HZklgPkboro"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "HZklgPkboro",
+    "start_ms": 166200,
+    "end_ms": 191700
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q026",
+  "query": "what is a broker",
+  "scope": [
+   "HZklgPkboro"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "HZklgPkboro",
+    "start_ms": 32220,
+    "end_ms": 42240
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q027",
+  "query": "kafka change data capture",
+  "scope": [
+   "yIAcHMJzqJc",
+   "Ajz6dBp_EB4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "yIAcHMJzqJc",
+    "start_ms": 138600,
+    "end_ms": 179840
+   },
+   {
+    "video_id": "Ajz6dBp_EB4",
+    "start_ms": 219120,
+    "end_ms": 291800
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "two near-duplicate 'top 5 Kafka use cases' videos -- both spans are gold, a deduping retriever that drops one loses coverage"
+ },
+ {
+  "id": "q028",
+  "query": "using kafka to migrate from an old system to a new one",
+  "scope": [
+   "yIAcHMJzqJc",
+   "Ajz6dBp_EB4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "yIAcHMJzqJc",
+    "start_ms": 179840,
+    "end_ms": 230800
+   },
+   {
+    "video_id": "Ajz6dBp_EB4",
+    "start_ms": 291800,
+    "end_ms": 337960
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q029",
+  "query": "elk stack log analysis with kafka",
+  "scope": [
+   "Ajz6dBp_EB4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Ajz6dBp_EB4",
+    "start_ms": 56640,
+    "end_ms": 77040
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q030",
+  "query": "kafka streams",
+  "scope": [
+   "Ajz6dBp_EB4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Ajz6dBp_EB4",
+    "start_ms": 136040,
+    "end_ms": 148560
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q031",
+  "query": "what are the three parts of a kafka message",
+  "scope": [
+   "-RDyEFvnTXI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "-RDyEFvnTXI",
+    "start_ms": 44280,
+    "end_ms": 65720
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "ASR spells Kafka as kfka/CFA/Capa in this video"
+ },
+ {
+  "id": "q032",
+  "query": "moving off zookeeper",
+  "scope": [
+   "-RDyEFvnTXI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "-RDyEFvnTXI",
+    "start_ms": 229560,
+    "end_ms": 249360
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "KRaft is transcribed as 'craft'"
+ },
+ {
+  "id": "q033",
+  "query": "what triggers a consumer group rebalance",
+  "scope": [
+   "-RDyEFvnTXI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "-RDyEFvnTXI",
+    "start_ms": 198360,
+    "end_ms": 214720
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q034",
+  "query": "compare ibm mq rabbitmq kafka and pulsar",
+  "scope": [
+   "x4k1XEjNzYQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "x4k1XEjNzYQ",
+    "start_ms": 61160,
+    "end_ms": 100200
+   },
+   {
+    "video_id": "x4k1XEjNzYQ",
+    "start_ms": 100200,
+    "end_ms": 141360
+   },
+   {
+    "video_id": "x4k1XEjNzYQ",
+    "start_ms": 141360,
+    "end_ms": 193400
+   },
+   {
+    "video_id": "x4k1XEjNzYQ",
+    "start_ms": 193400,
+    "end_ms": 252920
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "four-way comparison, one span per system -- coverage matters more than hit here"
+ },
+ {
+  "id": "q035",
+  "query": "pulsar tiered storage",
+  "scope": [
+   "x4k1XEjNzYQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "x4k1XEjNzYQ",
+    "start_ms": 231600,
+    "end_ms": 242880
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q036",
+  "query": "redis sorted set leaderboard",
+  "scope": [
+   "z_NbVtbgBJw",
+   "a4yX7RUgTxI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "z_NbVtbgBJw",
+    "start_ms": 455840,
+    "end_ms": 487919
+   },
+   {
+    "video_id": "a4yX7RUgTxI",
+    "start_ms": 322200,
+    "end_ms": 351120
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "ASR in z_NbVtbgBJw writes Redis as 'Reddus' and sorted set as 'sort of set' -- lexical match only fires on the clean transcript"
+ },
+ {
+  "id": "q037",
+  "query": "what are my options for redis persistence",
+  "scope": [
+   "z_NbVtbgBJw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "z_NbVtbgBJw",
+    "start_ms": 165519,
+    "end_ms": 189920
+   },
+   {
+    "video_id": "z_NbVtbgBJw",
+    "start_ms": 189920,
+    "end_ms": 215840
+   },
+   {
+    "video_id": "z_NbVtbgBJw",
+    "start_ms": 215840,
+    "end_ms": 239040
+   },
+   {
+    "video_id": "z_NbVtbgBJw",
+    "start_ms": 239040,
+    "end_ms": 270800
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "four distinct choices: pure cache, replicas, RDB snapshots, AOF"
+ },
+ {
+  "id": "q038",
+  "query": "client side sharding redis",
+  "scope": [
+   "z_NbVtbgBJw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "z_NbVtbgBJw",
+    "start_ms": 314800,
+    "end_ms": 356400
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q039",
+  "query": "how does redis stay fast if commands run one at a time",
+  "scope": [
+   "z_NbVtbgBJw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "z_NbVtbgBJw",
+    "start_ms": 61600,
+    "end_ms": 85920
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "pipelining answer; the video restates 'single threaded' many times, so lexical retrievers pull the wrong span"
+ },
+ {
+  "id": "q040",
+  "query": "setnx distributed lock",
+  "scope": [
+   "a4yX7RUgTxI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "a4yX7RUgTxI",
+    "start_ms": 182820,
+    "end_ms": 249120
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q041",
+  "query": "rate limiting with redis counters",
+  "scope": [
+   "a4yX7RUgTxI",
+   "z_NbVtbgBJw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "a4yX7RUgTxI",
+    "start_ms": 266340,
+    "end_ms": 311820
+   },
+   {
+    "video_id": "z_NbVtbgBJw",
+    "start_ms": 422240,
+    "end_ms": 449360
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q042",
+  "query": "io multiplexing epoll",
+  "scope": [
+   "5TRFpFBccQM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "5TRFpFBccQM",
+    "start_ms": 120000,
+    "end_ms": 152880
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q043",
+  "query": "what does redis give up by being single threaded",
+  "scope": [
+   "5TRFpFBccQM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "5TRFpFBccQM",
+    "start_ms": 145680,
+    "end_ms": 167520
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q044",
+  "query": "how much does redis enterprise cost per month",
+  "scope": [
+   "z_NbVtbgBJw",
+   "a4yX7RUgTxI",
+   "5TRFpFBccQM"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "pricing is never discussed in any of the three Redis videos"
+ },
+ {
+  "id": "q045",
+  "query": "what authentication methods can i use on a rest api",
+  "scope": [
+   "hltLrjabkiY"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "hltLrjabkiY",
+    "start_ms": 171720,
+    "end_ms": 212239
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "sits immediately after a 60s sponsor read (90000-153920) -- a chunker that bleeds the ad in pollutes this span"
+ },
+ {
+  "id": "q046",
+  "query": "idempotency",
+  "scope": [
+   "hltLrjabkiY"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "hltLrjabkiY",
+    "start_ms": 253760,
+    "end_ms": 264160
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q047",
+  "query": "n+1 query problem",
+  "scope": [
+   "hltLrjabkiY"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "covered in zvWKqUiovAM and yWzKJPw_VzM but not here -- tests that scope actually filters"
+ },
+ {
+  "id": "q048",
+  "query": "when should i use the raw api instead of the sdk",
+  "scope": [
+   "GhX8sNyFo5w"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "GhX8sNyFo5w",
+    "start_ms": 219000,
+    "end_ms": 240280
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the SDK half of the same comparison runs 240280-256560; retrieving that instead is the failure mode"
+ },
+ {
+  "id": "q049",
+  "query": "api vs sdk",
+  "scope": [
+   "GhX8sNyFo5w"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "GhX8sNyFo5w",
+    "start_ms": 219000,
+    "end_ms": 240280
+   },
+   {
+    "video_id": "GhX8sNyFo5w",
+    "start_ms": 240280,
+    "end_ms": 256560
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q050",
+  "query": "instagram share sheet sdk example",
+  "scope": [
+   "GhX8sNyFo5w"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "GhX8sNyFo5w",
+    "start_ms": 202640,
+    "end_ms": 219000
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q051",
+  "query": "walk me through what an api gateway does to a request",
+  "scope": [
+   "6ULyxuHKxg8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "6ULyxuHKxg8",
+    "start_ms": 49800,
+    "end_ms": 150660
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "eight numbered steps in one contiguous run"
+ },
+ {
+  "id": "q052",
+  "query": "where does an api gateway do rate limiting",
+  "scope": [
+   "6ULyxuHKxg8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "6ULyxuHKxg8",
+    "start_ms": 74340,
+    "end_ms": 87840
+   },
+   {
+    "video_id": "6ULyxuHKxg8",
+    "start_ms": 107280,
+    "end_ms": 116760
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "two separate rate-limit checks, pre-auth and post-auth, ~20s apart"
+ },
+ {
+  "id": "q053",
+  "query": "reverse proxy vs api gateway vs load balancer",
+  "scope": [
+   "RqfaTIWc3LQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "RqfaTIWc3LQ",
+    "start_ms": 18269,
+    "end_ms": 50034
+   },
+   {
+    "video_id": "RqfaTIWc3LQ",
+    "start_ms": 50074,
+    "end_ms": 79388
+   },
+   {
+    "video_id": "RqfaTIWc3LQ",
+    "start_ms": 79388,
+    "end_ms": 102830
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q054",
+  "query": "nginx doing two jobs at once",
+  "scope": [
+   "RqfaTIWc3LQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "RqfaTIWc3LQ",
+    "start_ms": 131060,
+    "end_ms": 157892
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q055",
+  "query": "offset pagination vs cursor pagination",
+  "scope": [
+   "14K_a2kKTxU"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "14K_a2kKTxU",
+    "start_ms": 32119,
+    "end_ms": 86840
+   },
+   {
+    "video_id": "14K_a2kKTxU",
+    "start_ms": 84159,
+    "end_ms": 134280
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q056",
+  "query": "why does pagination get slower as you go deeper",
+  "scope": [
+   "14K_a2kKTxU"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "14K_a2kKTxU",
+    "start_ms": 55800,
+    "end_ms": 86840
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q057",
+  "query": "keyset pagination",
+  "scope": [
+   "14K_a2kKTxU"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "14K_a2kKTxU",
+    "start_ms": 134280,
+    "end_ms": 162519
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q058",
+  "query": "n+1 query problem",
+  "scope": [
+   "zvWKqUiovAM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "zvWKqUiovAM",
+    "start_ms": 162240,
+    "end_ms": 214860
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "same query string as q047, different scope -- q047 must return nothing, this must return the span"
+ },
+ {
+  "id": "q059",
+  "query": "connection pooling breaks on serverless",
+  "scope": [
+   "zvWKqUiovAM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "zvWKqUiovAM",
+    "start_ms": 128820,
+    "end_ms": 162240
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q060",
+  "query": "what can go wrong with asynchronous logging",
+  "scope": [
+   "zvWKqUiovAM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "zvWKqUiovAM",
+    "start_ms": 323520,
+    "end_ms": 333360
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "one short caveat at the tail of a 45s section -- tests whether small spans survive chunking"
+ },
+ {
+  "id": "q061",
+  "query": "what does rest actually stand for",
+  "scope": [
+   "-mN3VyJuCjM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "-mN3VyJuCjM",
+    "start_ms": 27280,
+    "end_ms": 41680
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q062",
+  "query": "why does rest have to be stateless",
+  "scope": [
+   "-mN3VyJuCjM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "-mN3VyJuCjM",
+    "start_ms": 214160,
+    "end_ms": 237360
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q063",
+  "query": "api versioning",
+  "scope": [
+   "-mN3VyJuCjM",
+   "6WZ6S-qmtqY"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "-mN3VyJuCjM",
+    "start_ms": 260480,
+    "end_ms": 286560
+   },
+   {
+    "video_id": "6WZ6S-qmtqY",
+    "start_ms": 305284,
+    "end_ms": 341269
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q064",
+  "query": "nouns not verbs in resource urls",
+  "scope": [
+   "-mN3VyJuCjM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "-mN3VyJuCjM",
+    "start_ms": 70880,
+    "end_ms": 87600
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q065",
+  "query": "why is graphql harder to cache than rest",
+  "scope": [
+   "yWzKJPw_VzM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "yWzKJPw_VzM",
+    "start_ms": 206700,
+    "end_ms": 247800
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q066",
+  "query": "graphql mutations and subscriptions",
+  "scope": [
+   "yWzKJPw_VzM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "yWzKJPw_VzM",
+    "start_ms": 31500,
+    "end_ms": 47220
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q067",
+  "query": "the danger of letting clients write their own queries",
+  "scope": [
+   "yWzKJPw_VzM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "yWzKJPw_VzM",
+    "start_ms": 247800,
+    "end_ms": 286740
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the unbounded-query table scan risk; never uses the word 'danger' in the obvious place"
+ },
+ {
+  "id": "q068",
+  "query": "when is soap still the right choice",
+  "scope": [
+   "4vLxWqE94l4",
+   "PNRbanEKGtw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "4vLxWqE94l4",
+    "start_ms": 52740,
+    "end_ms": 78840
+   },
+   {
+    "video_id": "PNRbanEKGtw",
+    "start_ms": 35040,
+    "end_ms": 58000
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "PNRbanEKGtw is a truncated re-cut of the SAME script as 4vLxWqE94l4 -- both spans are genuinely gold, near-duplicate handling is the thing under test"
+ },
+ {
+  "id": "q069",
+  "query": "what is grpc used for",
+  "scope": [
+   "PNRbanEKGtw"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "the full video 4vLxWqE94l4 covers gRPC at 155160-180960, but this re-cut stops at 75840 -- a near-duplicate index that leaks across the pair will answer this wrongly"
+ },
+ {
+  "id": "q070",
+  "query": "websocket vs webhook",
+  "scope": [
+   "4vLxWqE94l4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "4vLxWqE94l4",
+    "start_ms": 180960,
+    "end_ms": 201840
+   },
+   {
+    "video_id": "4vLxWqE94l4",
+    "start_ms": 201840,
+    "end_ms": 226440
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q071",
+  "query": "grpc protocol buffers over http2",
+  "scope": [
+   "zY2DMpCUfCg",
+   "gnchfOojMk4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "zY2DMpCUfCg",
+    "start_ms": 176520,
+    "end_ms": 203040
+   },
+   {
+    "video_id": "gnchfOojMk4",
+    "start_ms": 165660,
+    "end_ms": 211320
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q072",
+  "query": "what problem with rest did graphql show up to fix",
+  "scope": [
+   "zY2DMpCUfCg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "zY2DMpCUfCg",
+    "start_ms": 36720,
+    "end_ms": 51800
+   },
+   {
+    "video_id": "zY2DMpCUfCg",
+    "start_ms": 51800,
+    "end_ms": 78200
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "the problem and the fix are adjacent but distinct spans"
+ },
+ {
+  "id": "q073",
+  "query": "load testing vs stress testing",
+  "scope": [
+   "qquIJ1Ivusg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "qquIJ1Ivusg",
+    "start_ms": 122560,
+    "end_ms": 151240
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q074",
+  "query": "fuzz testing",
+  "scope": [
+   "qquIJ1Ivusg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "qquIJ1Ivusg",
+    "start_ms": 196600,
+    "end_ms": 217120
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q075",
+  "query": "short polling vs long polling vs webhooks",
+  "scope": [
+   "x_jjhcDrISk"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "x_jjhcDrISk",
+    "start_ms": 42840,
+    "end_ms": 70360
+   },
+   {
+    "video_id": "x_jjhcDrISk",
+    "start_ms": 70360,
+    "end_ms": 90640
+   },
+   {
+    "video_id": "x_jjhcDrISk",
+    "start_ms": 90640,
+    "end_ms": 109160
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q076",
+  "query": "how do i stop a webhook being processed twice",
+  "scope": [
+   "x_jjhcDrISk"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "x_jjhcDrISk",
+    "start_ms": 163000,
+    "end_ms": 172960
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q077",
+  "query": "webhook best practices",
+  "scope": [
+   "x_jjhcDrISk"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "x_jjhcDrISk",
+    "start_ms": 122760,
+    "end_ms": 135880
+   },
+   {
+    "video_id": "x_jjhcDrISk",
+    "start_ms": 144520,
+    "end_ms": 160200
+   },
+   {
+    "video_id": "x_jjhcDrISk",
+    "start_ms": 163000,
+    "end_ms": 172960
+   },
+   {
+    "video_id": "x_jjhcDrISk",
+    "start_ms": 176040,
+    "end_ms": 188480
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "four numbered practices; hit=True on any one while coverage=0.25"
+ },
+ {
+  "id": "q078",
+  "query": "why cant browsers speak grpc",
+  "scope": [
+   "gnchfOojMk4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "gnchfOojMk4",
+    "start_ms": 286080,
+    "end_ms": 324180
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q079",
+  "query": "client stub",
+  "scope": [
+   "gnchfOojMk4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "gnchfOojMk4",
+    "start_ms": 227760,
+    "end_ms": 248280
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q080",
+  "query": "why use scoped api keys instead of one master key",
+  "scope": [
+   "6WZ6S-qmtqY"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "6WZ6S-qmtqY",
+    "start_ms": 174492,
+    "end_ms": 235612
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q081",
+  "query": "what should an error message never reveal to a caller",
+  "scope": [
+   "6WZ6S-qmtqY"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "6WZ6S-qmtqY",
+    "start_ms": 451449,
+    "end_ms": 519946
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q082",
+  "query": "allow list vs deny list",
+  "scope": [
+   "6WZ6S-qmtqY"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "6WZ6S-qmtqY",
+    "start_ms": 341269,
+    "end_ms": 380179
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q083",
+  "query": "sql injection",
+  "scope": [
+   "BHwzDmr6d7s"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "BHwzDmr6d7s is SQL performance only; injection is covered in 6WZ6S-qmtqY at 525928-565457"
+ },
+ {
+  "id": "q084",
+  "query": "head of line blocking",
+  "scope": [
+   "UMwQjFzTQXw",
+   "a-sBfyiXysI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UMwQjFzTQXw",
+    "start_ms": 178640,
+    "end_ms": 193319
+   },
+   {
+    "video_id": "UMwQjFzTQXw",
+    "start_ms": 245920,
+    "end_ms": 257880
+   },
+   {
+    "video_id": "a-sBfyiXysI",
+    "start_ms": 86628,
+    "end_ms": 108602
+   },
+   {
+    "video_id": "a-sBfyiXysI",
+    "start_ms": 141082,
+    "end_ms": 149027
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "two videos x two places each: once as an HTTP/1.1 problem, once as what HTTP/2 does and does not fix"
+ },
+ {
+  "id": "q085",
+  "query": "what is quic",
+  "scope": [
+   "UMwQjFzTQXw",
+   "a-sBfyiXysI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UMwQjFzTQXw",
+    "start_ms": 328919,
+    "end_ms": 347919
+   },
+   {
+    "video_id": "a-sBfyiXysI",
+    "start_ms": 169280,
+    "end_ms": 200105
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q086",
+  "query": "why doesnt my connection drop when i walk out of wifi range",
+  "scope": [
+   "UMwQjFzTQXw",
+   "a-sBfyiXysI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UMwQjFzTQXw",
+    "start_ms": 390080,
+    "end_ms": 409520
+   },
+   {
+    "video_id": "a-sBfyiXysI",
+    "start_ms": 201132,
+    "end_ms": 225500
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "answer is QUIC connection IDs, but the query never says QUIC or connection ID"
+ },
+ {
+  "id": "q087",
+  "query": "http2 server push",
+  "scope": [
+   "UMwQjFzTQXw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UMwQjFzTQXw",
+    "start_ms": 274840,
+    "end_ms": 290000
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q088",
+  "query": "hpack header compression",
+  "scope": [
+   "UMwQjFzTQXw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UMwQjFzTQXw",
+    "start_ms": 290000,
+    "end_ms": 310520
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "ASR writes HPACK as 'xack'"
+ },
+ {
+  "id": "q089",
+  "query": "domain sharding and sprites",
+  "scope": [
+   "UMwQjFzTQXw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UMwQjFzTQXw",
+    "start_ms": 193319,
+    "end_ms": 216439
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the HTTP/1.1 workarounds; ASR writes 'domain Shing'"
+ },
+ {
+  "id": "q090",
+  "query": "why did browsers stop using pipelining",
+  "scope": [
+   "a-sBfyiXysI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "a-sBfyiXysI",
+    "start_ms": 58603,
+    "end_ms": 85382
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q091",
+  "query": "what are the two jobs of the tls handshake",
+  "scope": [
+   "WvSVSbGo0wI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "WvSVSbGo0wI",
+    "start_ms": 142160,
+    "end_ms": 159519
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q092",
+  "query": "forward secrecy",
+  "scope": [
+   "WvSVSbGo0wI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "WvSVSbGo0wI",
+    "start_ms": 270720,
+    "end_ms": 316880
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q093",
+  "query": "why switch to symmetric encryption after the handshake",
+  "scope": [
+   "WvSVSbGo0wI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "WvSVSbGo0wI",
+    "start_ms": 366560,
+    "end_ms": 399199
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q094",
+  "query": "what can someone on the same wifi actually see if i use plain http",
+  "scope": [
+   "WvSVSbGo0wI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "WvSVSbGo0wI",
+    "start_ms": 50800,
+    "end_ms": 105759
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q095",
+  "query": "what does the certificate prove and what does it not",
+  "scope": [
+   "WvSVSbGo0wI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "WvSVSbGo0wI",
+    "start_ms": 159519,
+    "end_ms": 224159
+   },
+   {
+    "video_id": "WvSVSbGo0wI",
+    "start_ms": 224159,
+    "end_ms": 238080
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "the negative half ('the certificate does not encrypt every byte') is a separate short span and is the part that gets missed"
+ },
+ {
+  "id": "q096",
+  "query": "502 vs 503",
+  "scope": [
+   "qmpUfWN7hh4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "qmpUfWN7hh4",
+    "start_ms": 160840,
+    "end_ms": 209680
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q097",
+  "query": "429 too many requests",
+  "scope": [
+   "qmpUfWN7hh4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "qmpUfWN7hh4",
+    "start_ms": 122720,
+    "end_ms": 141920
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q098",
+  "query": "304 not modified",
+  "scope": [
+   "qmpUfWN7hh4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "qmpUfWN7hh4",
+    "start_ms": 232680,
+    "end_ms": 248840
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q099",
+  "query": "difference between 401 and 403",
+  "scope": [
+   "qmpUfWN7hh4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "qmpUfWN7hh4",
+    "start_ms": 79160,
+    "end_ms": 94440
+   },
+   {
+    "video_id": "qmpUfWN7hh4",
+    "start_ms": 94440,
+    "end_ms": 114680
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q100",
+  "query": "walk me through what happens when i type google.com",
+  "scope": [
+   "27r4Bzuj5NQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "27r4Bzuj5NQ",
+    "start_ms": 167520,
+    "end_ms": 244020
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q101",
+  "query": "how do i change a dns record without breaking production",
+  "scope": [
+   "27r4Bzuj5NQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "27r4Bzuj5NQ",
+    "start_ms": 244020,
+    "end_ms": 307320
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q102",
+  "query": "how many root name servers are there",
+  "scope": [
+   "27r4Bzuj5NQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "27r4Bzuj5NQ",
+    "start_ms": 97500,
+    "end_ms": 119400
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q103",
+  "query": "tcp vs udp",
+  "scope": [
+   "0y6FtKsg6J4",
+   "sMHzfigUxz4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "0y6FtKsg6J4",
+    "start_ms": 76320,
+    "end_ms": 102360
+   },
+   {
+    "video_id": "0y6FtKsg6J4",
+    "start_ms": 103920,
+    "end_ms": 130740
+   },
+   {
+    "video_id": "sMHzfigUxz4",
+    "start_ms": 360520,
+    "end_ms": 382160
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q104",
+  "query": "l4 vs l7 load balancer",
+  "scope": [
+   "0y6FtKsg6J4",
+   "LQuuoHTyYz8",
+   "Qd9tJ3H_hPE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "0y6FtKsg6J4",
+    "start_ms": 251700,
+    "end_ms": 272780
+   },
+   {
+    "video_id": "LQuuoHTyYz8",
+    "start_ms": 122719,
+    "end_ms": 206799
+   },
+   {
+    "video_id": "Qd9tJ3H_hPE",
+    "start_ms": 200000,
+    "end_ms": 240000
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "three videos, three depths of the same answer -- the OSI video gives the one-line version, LQuuoHTyYz8 the long one"
+ },
+ {
+  "id": "q105",
+  "query": "whose mac address is actually in the frame",
+  "scope": [
+   "0y6FtKsg6J4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "0y6FtKsg6J4",
+    "start_ms": 197460,
+    "end_ms": 212760
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the 'in the real world this is nuanced' caveat, not the clean textbook sentence before it"
+ },
+ {
+  "id": "q106",
+  "query": "what is packet switching",
+  "scope": [
+   "sMHzfigUxz4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "sMHzfigUxz4",
+    "start_ms": 194519,
+    "end_ms": 247840
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q107",
+  "query": "bgp autonomous systems",
+  "scope": [
+   "sMHzfigUxz4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "sMHzfigUxz4",
+    "start_ms": 293280,
+    "end_ms": 335600
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q108",
+  "query": "forwarding vs routing",
+  "scope": [
+   "sMHzfigUxz4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "sMHzfigUxz4",
+    "start_ms": 243040,
+    "end_ms": 293280
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q109",
+  "query": "how does ssh prove i am who i say i am",
+  "scope": [
+   "rlMfRa7vfO8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "rlMfRa7vfO8",
+    "start_ms": 123039,
+    "end_ms": 184720
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q110",
+  "query": "ssh local forwarding",
+  "scope": [
+   "rlMfRa7vfO8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "rlMfRa7vfO8",
+    "start_ms": 210439,
+    "end_ms": 229239
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q111",
+  "query": "global server load balancing",
+  "scope": [
+   "LQuuoHTyYz8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "LQuuoHTyYz8",
+    "start_ms": 206799,
+    "end_ms": 254959
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "ASR writes 'load balancer' as 'low balancer' throughout this video"
+ },
+ {
+  "id": "q112",
+  "query": "sticky sessions",
+  "scope": [
+   "LQuuoHTyYz8",
+   "dBmxNsS3BGE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "LQuuoHTyYz8",
+    "start_ms": 272120,
+    "end_ms": 294520
+   },
+   {
+    "video_id": "dBmxNsS3BGE",
+    "start_ms": 105780,
+    "end_ms": 127020
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q113",
+  "query": "what metrics should i watch on a load balancer",
+  "scope": [
+   "LQuuoHTyYz8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "LQuuoHTyYz8",
+    "start_ms": 350160,
+    "end_ms": 388319
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q114",
+  "query": "static vs dynamic load balancing algorithms",
+  "scope": [
+   "dBmxNsS3BGE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "dBmxNsS3BGE",
+    "start_ms": 67020,
+    "end_ms": 83100
+   },
+   {
+    "video_id": "dBmxNsS3BGE",
+    "start_ms": 177900,
+    "end_ms": 191820
+   }
+  ],
+  "query_type": "comparison",
+  "note": "the two category definitions are 100s apart with six algorithms in between"
+ },
+ {
+  "id": "q115",
+  "query": "downside of least response time routing",
+  "scope": [
+   "dBmxNsS3BGE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "dBmxNsS3BGE",
+    "start_ms": 232020,
+    "end_ms": 253440
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q116",
+  "query": "forward proxy vs reverse proxy",
+  "scope": [
+   "4NB0NDtOwIQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "4NB0NDtOwIQ",
+    "start_ms": 17880,
+    "end_ms": 138600
+   },
+   {
+    "video_id": "4NB0NDtOwIQ",
+    "start_ms": 138600,
+    "end_ms": 255900
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q117",
+  "query": "transparent proxy",
+  "scope": [
+   "4NB0NDtOwIQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "4NB0NDtOwIQ",
+    "start_ms": 101280,
+    "end_ms": 131940
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q118",
+  "query": "how does cloudflare absorb a ddos",
+  "scope": [
+   "4NB0NDtOwIQ",
+   "RI9np1LWzqw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "4NB0NDtOwIQ",
+    "start_ms": 157140,
+    "end_ms": 172620
+   },
+   {
+    "video_id": "4NB0NDtOwIQ",
+    "start_ms": 198480,
+    "end_ms": 217500
+   },
+   {
+    "video_id": "RI9np1LWzqw",
+    "start_ms": 201900,
+    "end_ms": 228240
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q119",
+  "query": "what is a point of presence",
+  "scope": [
+   "RI9np1LWzqw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "RI9np1LWzqw",
+    "start_ms": 53700,
+    "end_ms": 76560
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q120",
+  "query": "dns based routing vs anycast",
+  "scope": [
+   "RI9np1LWzqw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "RI9np1LWzqw",
+    "start_ms": 76560,
+    "end_ms": 111900
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q121",
+  "query": "why terminate tls at the edge",
+  "scope": [
+   "RI9np1LWzqw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "RI9np1LWzqw",
+    "start_ms": 162540,
+    "end_ms": 197580
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q122",
+  "query": "how do i stop a cache stampede",
+  "scope": [
+   "wh98s0XhMmQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "wh98s0XhMmQ",
+    "start_ms": 90120,
+    "end_ms": 129960
+   },
+   {
+    "video_id": "wh98s0XhMmQ",
+    "start_ms": 129960,
+    "end_ms": 150040
+   },
+   {
+    "video_id": "wh98s0XhMmQ",
+    "start_ms": 150040,
+    "end_ms": 172360
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "three mitigations: locking, external recomputation, probabilistic early expiration -- classic coverage trap"
+ },
+ {
+  "id": "q123",
+  "query": "cache stampede vs cache avalanche",
+  "scope": [
+   "wh98s0XhMmQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "wh98s0XhMmQ",
+    "start_ms": 349480,
+    "end_ms": 378800
+   }
+  ],
+  "query_type": "comparison",
+  "note": "the video ends with an explicit side-by-side; the earlier scattered mentions are decoys"
+ },
+ {
+  "id": "q124",
+  "query": "bloom filter",
+  "scope": [
+   "wh98s0XhMmQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "wh98s0XhMmQ",
+    "start_ms": 220280,
+    "end_ms": 259080
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q125",
+  "query": "what is a bloom filter",
+  "scope": [
+   "nBvDtj-p6VM"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "same concept as q124 under a different scope; nBvDtj-p6VM covers indexing at length but never bloom filters"
+ },
+ {
+  "id": "q126",
+  "query": "l1 l2 l3 cache",
+  "scope": [
+   "dGAgxozNWFE",
+   "FqR5vESuKe0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "dGAgxozNWFE",
+    "start_ms": 46140,
+    "end_ms": 84540
+   },
+   {
+    "video_id": "FqR5vESuKe0",
+    "start_ms": 97200,
+    "end_ms": 130080
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "one video gives the structure, the other gives the latency numbers"
+ },
+ {
+  "id": "q127",
+  "query": "translation lookaside buffer",
+  "scope": [
+   "dGAgxozNWFE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "dGAgxozNWFE",
+    "start_ms": 84540,
+    "end_ms": 105480
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q128",
+  "query": "what caches exist inside the database itself",
+  "scope": [
+   "dGAgxozNWFE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "dGAgxozNWFE",
+    "start_ms": 282480,
+    "end_ms": 313740
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q129",
+  "query": "seven ways to scale a database",
+  "scope": [
+   "_1IKwnbscQU"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "_1IKwnbscQU",
+    "start_ms": 55960,
+    "end_ms": 126160
+   },
+   {
+    "video_id": "_1IKwnbscQU",
+    "start_ms": 126160,
+    "end_ms": 182200
+   },
+   {
+    "video_id": "_1IKwnbscQU",
+    "start_ms": 182200,
+    "end_ms": 227480
+   },
+   {
+    "video_id": "_1IKwnbscQU",
+    "start_ms": 227480,
+    "end_ms": 298560
+   },
+   {
+    "video_id": "_1IKwnbscQU",
+    "start_ms": 298560,
+    "end_ms": 360640
+   },
+   {
+    "video_id": "_1IKwnbscQU",
+    "start_ms": 360640,
+    "end_ms": 416720
+   },
+   {
+    "video_id": "_1IKwnbscQU",
+    "start_ms": 416720,
+    "end_ms": 502680
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "widest coverage case in the set: seven sibling spans, any single hit looks like success"
+ },
+ {
+  "id": "q130",
+  "query": "why do indexes make writes slower",
+  "scope": [
+   "_1IKwnbscQU",
+   "nBvDtj-p6VM",
+   "BTjxUS_PylA"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "_1IKwnbscQU",
+    "start_ms": 111200,
+    "end_ms": 126160
+   },
+   {
+    "video_id": "nBvDtj-p6VM",
+    "start_ms": 234000,
+    "end_ms": 252000
+   },
+   {
+    "video_id": "BTjxUS_PylA",
+    "start_ms": 317200,
+    "end_ms": 322600
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "the same caveat stated three times across the corpus, each time in one short span"
+ },
+ {
+  "id": "q131",
+  "query": "synchronous vs asynchronous replication",
+  "scope": [
+   "_1IKwnbscQU",
+   "BTjxUS_PylA",
+   "nBvDtj-p6VM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "_1IKwnbscQU",
+    "start_ms": 371440,
+    "end_ms": 400440
+   },
+   {
+    "video_id": "BTjxUS_PylA",
+    "start_ms": 148880,
+    "end_ms": 165440
+   },
+   {
+    "video_id": "nBvDtj-p6VM",
+    "start_ms": 308160,
+    "end_ms": 338400
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q132",
+  "query": "resharding",
+  "scope": [
+   "_1IKwnbscQU"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "_1IKwnbscQU",
+    "start_ms": 483200,
+    "end_ms": 490680
+   }
+  ],
+  "query_type": "terse",
+  "note": "one sentence inside a 90s sharding section"
+ },
+ {
+  "id": "q133",
+  "query": "what order does sql actually execute clauses in",
+  "scope": [
+   "BHwzDmr6d7s"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "BHwzDmr6d7s",
+    "start_ms": 313927,
+    "end_ms": 337004
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the explicit recap; the whole video walks the order, so there are many partial decoys"
+ },
+ {
+  "id": "q134",
+  "query": "why does wrapping a column in a function kill the index",
+  "scope": [
+   "BHwzDmr6d7s"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "BHwzDmr6d7s",
+    "start_ms": 169535,
+    "end_ms": 220129
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the word is 'sargable' and the ASR spells it 'solvable' / 'solgable' -- a query using the real term has zero lexical overlap"
+ },
+ {
+  "id": "q135",
+  "query": "covering index",
+  "scope": [
+   "BHwzDmr6d7s"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "BHwzDmr6d7s",
+    "start_ms": 260939,
+    "end_ms": 283741
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q136",
+  "query": "dirty read vs non-repeatable read vs phantom read",
+  "scope": [
+   "GAe5oB742dw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "GAe5oB742dw",
+    "start_ms": 140080,
+    "end_ms": 170760
+   },
+   {
+    "video_id": "GAe5oB742dw",
+    "start_ms": 170760,
+    "end_ms": 192580
+   },
+   {
+    "video_id": "GAe5oB742dw",
+    "start_ms": 192580,
+    "end_ms": 219920
+   }
+  ],
+  "query_type": "comparison",
+  "note": "three anomalies, each with its own bank-balance example -- easy to retrieve one and think you are done"
+ },
+ {
+  "id": "q137",
+  "query": "atomicity",
+  "scope": [
+   "GAe5oB742dw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "GAe5oB742dw",
+    "start_ms": 19920,
+    "end_ms": 60040
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q138",
+  "query": "write ahead logging",
+  "scope": [
+   "GAe5oB742dw",
+   "dGAgxozNWFE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "GAe5oB742dw",
+    "start_ms": 240320,
+    "end_ms": 269720
+   },
+   {
+    "video_id": "dGAgxozNWFE",
+    "start_ms": 286680,
+    "end_ms": 296700
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q139",
+  "query": "cap theorem",
+  "scope": [
+   "BHqjEjzAicA",
+   "cTyZ_hbmbDw",
+   "Qd9tJ3H_hPE",
+   "1nENigGr-a0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "BHqjEjzAicA",
+    "start_ms": 11940,
+    "end_ms": 66360
+   },
+   {
+    "video_id": "cTyZ_hbmbDw",
+    "start_ms": 8720,
+    "end_ms": 59320
+   },
+   {
+    "video_id": "Qd9tJ3H_hPE",
+    "start_ms": 39600,
+    "end_ms": 73360
+   },
+   {
+    "video_id": "1nENigGr-a0",
+    "start_ms": 147800,
+    "end_ms": 181360
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "four videos define CAP independently -- the widest cross-video redundancy in the corpus"
+ },
+ {
+  "id": "q140",
+  "query": "the two atm example",
+  "scope": [
+   "BHqjEjzAicA"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "BHqjEjzAicA",
+    "start_ms": 83880,
+    "end_ms": 167880
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "retrievable only by the analogy, not by any technical term"
+ },
+ {
+  "id": "q141",
+  "query": "pacelc",
+  "scope": [
+   "BHqjEjzAicA",
+   "cTyZ_hbmbDw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "BHqjEjzAicA",
+    "start_ms": 315420,
+    "end_ms": 320520
+   },
+   {
+    "video_id": "cTyZ_hbmbDw",
+    "start_ms": 59320,
+    "end_ms": 93120
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "one video gives it a 5s name-drop, the other a real explanation"
+ },
+ {
+  "id": "q142",
+  "query": "pacelc",
+  "scope": [
+   "Qd9tJ3H_hPE"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "same query as q141 under a scope that covers CAP heavily but never PACELC"
+ },
+ {
+  "id": "q143",
+  "query": "why do we salt passwords",
+  "scope": [
+   "zt8Cocdy15c"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "zt8Cocdy15c",
+    "start_ms": 100880,
+    "end_ms": 155040
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q144",
+  "query": "how is a password checked at login time",
+  "scope": [
+   "zt8Cocdy15c"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "zt8Cocdy15c",
+    "start_ms": 182560,
+    "end_ms": 209200
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the reverse direction of the storage flow at 148320-182560; retrieving that instead is the failure"
+ },
+ {
+  "id": "q145",
+  "query": "why not md5",
+  "scope": [
+   "zt8Cocdy15c"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "zt8Cocdy15c",
+    "start_ms": 85200,
+    "end_ms": 100880
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q146",
+  "query": "how slow is bcrypt",
+  "scope": [
+   "zt8Cocdy15c"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "this video argues for slow hashes without ever naming one; the bcrypt number is in FqR5vESuKe0 at 317820-333060"
+ },
+ {
+  "id": "q147",
+  "query": "vertical vs horizontal scaling",
+  "scope": [
+   "dvRFHG2-uYs",
+   "EWS_CIxttVw",
+   "2g1G8Jr88xU",
+   "_1IKwnbscQU"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "dvRFHG2-uYs",
+    "start_ms": 18720,
+    "end_ms": 82680
+   },
+   {
+    "video_id": "dvRFHG2-uYs",
+    "start_ms": 82680,
+    "end_ms": 191080
+   },
+   {
+    "video_id": "EWS_CIxttVw",
+    "start_ms": 287840,
+    "end_ms": 359000
+   },
+   {
+    "video_id": "2g1G8Jr88xU",
+    "start_ms": 12960,
+    "end_ms": 62719
+   },
+   {
+    "video_id": "_1IKwnbscQU",
+    "start_ms": 227480,
+    "end_ms": 298560
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "the single most redundant topic in the corpus: four videos, five spans"
+ },
+ {
+  "id": "q148",
+  "query": "what does horizontal scaling actually cost you",
+  "scope": [
+   "dvRFHG2-uYs"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "dvRFHG2-uYs",
+    "start_ms": 141080,
+    "end_ms": 191080
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the disadvantages half only; the advantages run 107840-141080"
+ },
+ {
+  "id": "q149",
+  "query": "noisy neighbor",
+  "scope": [
+   "Jz8Gs4UHTO8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Jz8Gs4UHTO8",
+    "start_ms": 54240,
+    "end_ms": 67120
+   },
+   {
+    "video_id": "Jz8Gs4UHTO8",
+    "start_ms": 236800,
+    "end_ms": 250080
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "defined once as a bare-metal benefit, raised again 3 minutes later as a VM weakness"
+ },
+ {
+  "id": "q150",
+  "query": "meltdown and spectre",
+  "scope": [
+   "Jz8Gs4UHTO8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Jz8Gs4UHTO8",
+    "start_ms": 67120,
+    "end_ms": 84560
+   },
+   {
+    "video_id": "Jz8Gs4UHTO8",
+    "start_ms": 250080,
+    "end_ms": 267040
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "the names appear only in the second span; the mechanism only in the first"
+ },
+ {
+  "id": "q151",
+  "query": "why would you run containers inside a vm",
+  "scope": [
+   "Jz8Gs4UHTO8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Jz8Gs4UHTO8",
+    "start_ms": 364960,
+    "end_ms": 382080
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q152",
+  "query": "bare metal vs vm vs container",
+  "scope": [
+   "Jz8Gs4UHTO8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Jz8Gs4UHTO8",
+    "start_ms": 22400,
+    "end_ms": 112640
+   },
+   {
+    "video_id": "Jz8Gs4UHTO8",
+    "start_ms": 112640,
+    "end_ms": 267040
+   },
+   {
+    "video_id": "Jz8Gs4UHTO8",
+    "start_ms": 267040,
+    "end_ms": 364960
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q153",
+  "query": "docker layer caching",
+  "scope": [
+   "QEzbZKtLi-g"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "QEzbZKtLi-g",
+    "start_ms": 35120,
+    "end_ms": 58160
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q154",
+  "query": "docker volumes",
+  "scope": [
+   "QEzbZKtLi-g"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "QEzbZKtLi-g",
+    "start_ms": 130479,
+    "end_ms": 154640
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q155",
+  "query": "namespaces and cgroups",
+  "scope": [
+   "QEzbZKtLi-g"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "QEzbZKtLi-g",
+    "start_ms": 83000,
+    "end_ms": 108479
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q156",
+  "query": "healthcheck in a dockerfile",
+  "scope": [
+   "QEzbZKtLi-g",
+   "Cs2j-Rjqg94"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "both Docker videos cover Dockerfiles without ever mentioning HEALTHCHECK"
+ },
+ {
+  "id": "q157",
+  "query": "what is oci and why does it matter",
+  "scope": [
+   "Cs2j-Rjqg94"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Cs2j-Rjqg94",
+    "start_ms": 86240,
+    "end_ms": 104840
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q158",
+  "query": "is docker still relevant",
+  "scope": [
+   "Cs2j-Rjqg94"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Cs2j-Rjqg94",
+    "start_ms": 180280,
+    "end_ms": 206480
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the actual verdict is at the very end; the framing question at 18760-33520 is the decoy"
+ },
+ {
+  "id": "q159",
+  "query": "kubernetes control plane components",
+  "scope": [
+   "TlHvYWVUZyc",
+   "lv0DdVLZuHc"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "TlHvYWVUZyc",
+    "start_ms": 113100,
+    "end_ms": 191520
+   },
+   {
+    "video_id": "lv0DdVLZuHc",
+    "start_ms": 149040,
+    "end_ms": 203280
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "two near-duplicate Kubernetes explainers; lv0DdVLZuHc has a null title, which breaks title-boosted rankers"
+ },
+ {
+  "id": "q160",
+  "query": "why is it called k8s",
+  "scope": [
+   "TlHvYWVUZyc"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "TlHvYWVUZyc",
+    "start_ms": 40140,
+    "end_ms": 61440
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q161",
+  "query": "why is it called k8s",
+  "scope": [
+   "lv0DdVLZuHc"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "paired with q160: the other Kubernetes video never explains the abbreviation, so a leaky near-duplicate index fails here"
+ },
+ {
+  "id": "q162",
+  "query": "kubernetes ingress",
+  "scope": [
+   "lv0DdVLZuHc"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "lv0DdVLZuHc",
+    "start_ms": 319920,
+    "end_ms": 340320
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q163",
+  "query": "kubernetes ingress",
+  "scope": [
+   "TlHvYWVUZyc"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "mirror of q162 -- TlHvYWVUZyc covers kube-proxy and services but never Ingress"
+ },
+ {
+  "id": "q164",
+  "query": "statefulset vs deployment",
+  "scope": [
+   "lv0DdVLZuHc"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "lv0DdVLZuHc",
+    "start_ms": 363480,
+    "end_ms": 419600
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q165",
+  "query": "when is kubernetes overkill",
+  "scope": [
+   "TlHvYWVUZyc",
+   "lv0DdVLZuHc"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "TlHvYWVUZyc",
+    "start_ms": 292200,
+    "end_ms": 376920
+   },
+   {
+    "video_id": "lv0DdVLZuHc",
+    "start_ms": 502880,
+    "end_ms": 577760
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q166",
+  "query": "service mesh",
+  "scope": [
+   "TlHvYWVUZyc",
+   "lv0DdVLZuHc"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "neither Kubernetes video mentions service mesh; p-88GN1WVs8 does at 351360-362160"
+ },
+ {
+  "id": "q167",
+  "query": "hmac vs rsa for signing tokens",
+  "scope": [
+   "fyTxwIa-1U0",
+   "P2CPd9ynFLg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "fyTxwIa-1U0",
+    "start_ms": 160320,
+    "end_ms": 212120
+   },
+   {
+    "video_id": "P2CPd9ynFLg",
+    "start_ms": 129720,
+    "end_ms": 175680
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q168",
+  "query": "refresh tokens",
+  "scope": [
+   "fyTxwIa-1U0",
+   "ZV5yTm4pT8g"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "fyTxwIa-1U0",
+    "start_ms": 229000,
+    "end_ms": 306880
+   },
+   {
+    "video_id": "ZV5yTm4pT8g",
+    "start_ms": 229720,
+    "end_ms": 242000
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "80 seconds in one video, 12 seconds in the other -- a length-normalised scorer will rank them very differently"
+ },
+ {
+  "id": "q169",
+  "query": "when should i use sessions instead of jwt",
+  "scope": [
+   "fyTxwIa-1U0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "fyTxwIa-1U0",
+    "start_ms": 306880,
+    "end_ms": 352720
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the JWT half of the same recommendation runs 352720-398760"
+ },
+ {
+  "id": "q170",
+  "query": "session vs jwt",
+  "scope": [
+   "fyTxwIa-1U0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "fyTxwIa-1U0",
+    "start_ms": 19200,
+    "end_ms": 108040
+   },
+   {
+    "video_id": "fyTxwIa-1U0",
+    "start_ms": 108040,
+    "end_ms": 160320
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q171",
+  "query": "is a jwt payload encrypted",
+  "scope": [
+   "P2CPd9ynFLg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "P2CPd9ynFLg",
+    "start_ms": 107600,
+    "end_ms": 129720
+   },
+   {
+    "video_id": "P2CPd9ynFLg",
+    "start_ms": 203440,
+    "end_ms": 221880
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "stated twice, 90s apart, and the answer is no -- a retriever that returns only the second span loses the JWE nuance"
+ },
+ {
+  "id": "q172",
+  "query": "three parts of a jwt",
+  "scope": [
+   "P2CPd9ynFLg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "P2CPd9ynFLg",
+    "start_ms": 66640,
+    "end_ms": 107600
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q173",
+  "query": "who is the resource owner in oauth",
+  "scope": [
+   "ZV5yTm4pT8g"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "ZV5yTm4pT8g",
+    "start_ms": 111560,
+    "end_ms": 139080
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "ASR mangles OAuth 2 into 'o off2' / 'OA 2' and the fictional apps into 'Snap Store' / 'PR magic'"
+ },
+ {
+  "id": "q174",
+  "query": "authorization code flow",
+  "scope": [
+   "ZV5yTm4pT8g"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "ZV5yTm4pT8g",
+    "start_ms": 139080,
+    "end_ms": 205680
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q175",
+  "query": "oauth",
+  "scope": [
+   "ZV5yTm4pT8g",
+   "6WZ6S-qmtqY"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "ZV5yTm4pT8g",
+    "start_ms": 44440,
+    "end_ms": 67240
+   },
+   {
+    "video_id": "6WZ6S-qmtqY",
+    "start_ms": 51531,
+    "end_ms": 113822
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q176",
+  "query": "what is the knee in the response curve",
+  "scope": [
+   "EWS_CIxttVw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "EWS_CIxttVw",
+    "start_ms": 64440,
+    "end_ms": 122080
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q177",
+  "query": "three principles for building something that scales",
+  "scope": [
+   "EWS_CIxttVw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "EWS_CIxttVw",
+    "start_ms": 179840,
+    "end_ms": 215040
+   },
+   {
+    "video_id": "EWS_CIxttVw",
+    "start_ms": 215040,
+    "end_ms": 249080
+   },
+   {
+    "video_id": "EWS_CIxttVw",
+    "start_ms": 249080,
+    "end_ms": 284280
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q178",
+  "query": "avoid centralized resources",
+  "scope": [
+   "EWS_CIxttVw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "EWS_CIxttVw",
+    "start_ms": 442960,
+    "end_ms": 471560
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the 'golden rule' restatement; centralized bottlenecks are also discussed at 122080-169080"
+ },
+ {
+  "id": "q179",
+  "query": "consistent hashing ring",
+  "scope": [
+   "Qd9tJ3H_hPE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Qd9tJ3H_hPE",
+    "start_ms": 268720,
+    "end_ms": 361360
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q180",
+  "query": "circuit breaker states",
+  "scope": [
+   "Qd9tJ3H_hPE",
+   "nH4qjmP2KEE",
+   "3Lis4w4_bBc"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Qd9tJ3H_hPE",
+    "start_ms": 361360,
+    "end_ms": 438639
+   },
+   {
+    "video_id": "nH4qjmP2KEE",
+    "start_ms": 58740,
+    "end_ms": 98220
+   },
+   {
+    "video_id": "3Lis4w4_bBc",
+    "start_ms": 208799,
+    "end_ms": 219439
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "only the first span names the three states; the other two describe the pattern without them"
+ },
+ {
+  "id": "q181",
+  "query": "token bucket vs leaky bucket",
+  "scope": [
+   "Qd9tJ3H_hPE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Qd9tJ3H_hPE",
+    "start_ms": 444639,
+    "end_ms": 488800
+   }
+  ],
+  "query_type": "comparison",
+  "note": "ASR garbles 'rate limiting' as 'ray limiting' and 'queued' as 'cute'"
+ },
+ {
+  "id": "q182",
+  "query": "metrics logs traces events",
+  "scope": [
+   "Qd9tJ3H_hPE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Qd9tJ3H_hPE",
+    "start_ms": 521200,
+    "end_ms": 560480
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q183",
+  "query": "spanner picks consistency dynamodb picks availability",
+  "scope": [
+   "Qd9tJ3H_hPE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Qd9tJ3H_hPE",
+    "start_ms": 73360,
+    "end_ms": 128560
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q184",
+  "query": "lsm tree compaction",
+  "scope": [
+   "BTjxUS_PylA"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "BTjxUS_PylA",
+    "start_ms": 103080,
+    "end_ms": 129800
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q185",
+  "query": "block storage vs object storage",
+  "scope": [
+   "BTjxUS_PylA"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "BTjxUS_PylA",
+    "start_ms": 236120,
+    "end_ms": 266880
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q186",
+  "query": "vitess",
+  "scope": [
+   "BTjxUS_PylA"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "BTjxUS_PylA",
+    "start_ms": 361222,
+    "end_ms": 369139
+   }
+  ],
+  "query_type": "terse",
+  "note": "the only content that lands AFTER the closing sponsor read (350480-361222) -- chunkers that stop at the outro drop this span entirely"
+ },
+ {
+  "id": "q187",
+  "query": "what does base stand for",
+  "scope": [
+   "cTyZ_hbmbDw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "cTyZ_hbmbDw",
+    "start_ms": 113000,
+    "end_ms": 160440
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q188",
+  "query": "solid principles",
+  "scope": [
+   "cTyZ_hbmbDw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "cTyZ_hbmbDw",
+    "start_ms": 201440,
+    "end_ms": 219880
+   },
+   {
+    "video_id": "cTyZ_hbmbDw",
+    "start_ms": 219880,
+    "end_ms": 245720
+   },
+   {
+    "video_id": "cTyZ_hbmbDw",
+    "start_ms": 245720,
+    "end_ms": 272000
+   },
+   {
+    "video_id": "cTyZ_hbmbDw",
+    "start_ms": 272000,
+    "end_ms": 306800
+   },
+   {
+    "video_id": "cTyZ_hbmbDw",
+    "start_ms": 306800,
+    "end_ms": 336800
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "five letters, five spans -- coverage is the whole point"
+ },
+ {
+  "id": "q189",
+  "query": "the ostrich example",
+  "scope": [
+   "cTyZ_hbmbDw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "cTyZ_hbmbDw",
+    "start_ms": 245720,
+    "end_ms": 272000
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "Liskov substitution, findable only via the bird analogy"
+ },
+ {
+  "id": "q190",
+  "query": "kiss",
+  "scope": [
+   "cTyZ_hbmbDw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "cTyZ_hbmbDw",
+    "start_ms": 336800,
+    "end_ms": 373040
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q191",
+  "query": "cqrs",
+  "scope": [
+   "nH4qjmP2KEE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "nH4qjmP2KEE",
+    "start_ms": 98220,
+    "end_ms": 146700
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q192",
+  "query": "strangler fig pattern",
+  "scope": [
+   "nH4qjmP2KEE",
+   "Ajz6dBp_EB4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "nH4qjmP2KEE",
+    "start_ms": 298380,
+    "end_ms": 333120
+   },
+   {
+    "video_id": "Ajz6dBp_EB4",
+    "start_ms": 303640,
+    "end_ms": 311080
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "a full explanation in one video, a 7s name-drop in the other"
+ },
+ {
+  "id": "q193",
+  "query": "ambassador pattern",
+  "scope": [
+   "nH4qjmP2KEE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "nH4qjmP2KEE",
+    "start_ms": 19140,
+    "end_ms": 58740
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q194",
+  "query": "event sourcing",
+  "scope": [
+   "nH4qjmP2KEE",
+   "7_wkWQ9rB5I"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "nH4qjmP2KEE",
+    "start_ms": 146700,
+    "end_ms": 181320
+   },
+   {
+    "video_id": "7_wkWQ9rB5I",
+    "start_ms": 314400,
+    "end_ms": 332000
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q195",
+  "query": "sql vs nosql",
+  "scope": [
+   "1nENigGr-a0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "1nENigGr-a0",
+    "start_ms": 18600,
+    "end_ms": 82080
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q196",
+  "query": "normalization vs denormalization",
+  "scope": [
+   "1nENigGr-a0",
+   "_1IKwnbscQU"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "1nENigGr-a0",
+    "start_ms": 82080,
+    "end_ms": 147800
+   },
+   {
+    "video_id": "_1IKwnbscQU",
+    "start_ms": 182200,
+    "end_ms": 227480
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q197",
+  "query": "batch vs stream processing",
+  "scope": [
+   "1nENigGr-a0",
+   "kGT4PcTEPP8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "1nENigGr-a0",
+    "start_ms": 226200,
+    "end_ms": 280080
+   },
+   {
+    "video_id": "kGT4PcTEPP8",
+    "start_ms": 113880,
+    "end_ms": 175480
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "kGT4PcTEPP8 has only 11 segments of ~28s each, so its span is far coarser than anything else in the corpus"
+ },
+ {
+  "id": "q198",
+  "query": "read through vs write through caching",
+  "scope": [
+   "2g1G8Jr88xU",
+   "nBvDtj-p6VM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "2g1G8Jr88xU",
+    "start_ms": 229319,
+    "end_ms": 280479
+   },
+   {
+    "video_id": "nBvDtj-p6VM",
+    "start_ms": 352240,
+    "end_ms": 397440
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q199",
+  "query": "when do you actually need a stateful server",
+  "scope": [
+   "2g1G8Jr88xU"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "2g1G8Jr88xU",
+    "start_ms": 188120,
+    "end_ms": 229319
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "immediately follows a 60s sponsor read (126280-190720); span start deliberately clears the ad"
+ },
+ {
+  "id": "q200",
+  "query": "rest vs graphql as an app matures",
+  "scope": [
+   "2g1G8Jr88xU"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "2g1G8Jr88xU",
+    "start_ms": 59719,
+    "end_ms": 126280
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q201",
+  "query": "replication vs redundancy vs failover",
+  "scope": [
+   "3Lis4w4_bBc"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "3Lis4w4_bBc",
+    "start_ms": 45719,
+    "end_ms": 84040
+   },
+   {
+    "video_id": "3Lis4w4_bBc",
+    "start_ms": 84040,
+    "end_ms": 124479
+   },
+   {
+    "video_id": "3Lis4w4_bBc",
+    "start_ms": 124479,
+    "end_ms": 146680
+   }
+  ],
+  "query_type": "comparison",
+  "note": "the video itself says these are 'closely related yet serve distinct roles' -- three spans that look almost identical to an embedder"
+ },
+ {
+  "id": "q202",
+  "query": "graceful degradation",
+  "scope": [
+   "3Lis4w4_bBc"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "3Lis4w4_bBc",
+    "start_ms": 179159,
+    "end_ms": 219439
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q203",
+  "query": "raid 0 vs raid 1",
+  "scope": [
+   "3Lis4w4_bBc"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "3Lis4w4_bBc",
+    "start_ms": 105119,
+    "end_ms": 124479
+   }
+  ],
+  "query_type": "comparison",
+  "note": "ASR writes RAID as 'raid' / 'raay' / 'Ray'"
+ },
+ {
+  "id": "q204",
+  "query": "biggest mistakes in a system design interview",
+  "scope": [
+   "OvufRkoD-D0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "OvufRkoD-D0",
+    "start_ms": 15759,
+    "end_ms": 77439
+   },
+   {
+    "video_id": "OvufRkoD-D0",
+    "start_ms": 77439,
+    "end_ms": 148879
+   },
+   {
+    "video_id": "OvufRkoD-D0",
+    "start_ms": 148879,
+    "end_ms": 218159
+   },
+   {
+    "video_id": "OvufRkoD-D0",
+    "start_ms": 218159,
+    "end_ms": 298639
+   },
+   {
+    "video_id": "OvufRkoD-D0",
+    "start_ms": 298639,
+    "end_ms": 364479
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q205",
+  "query": "push vs pull feed generation",
+  "scope": [
+   "OvufRkoD-D0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "OvufRkoD-D0",
+    "start_ms": 36480,
+    "end_ms": 58960
+   }
+  ],
+  "query_type": "comparison",
+  "note": "used only as an illustration of thinking out loud, so the surrounding span is about communication, not feeds"
+ },
+ {
+  "id": "q206",
+  "query": "when is microservices overengineering",
+  "scope": [
+   "OvufRkoD-D0",
+   "lTAcCNbJ7KE",
+   "uq-JpclPQV4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "OvufRkoD-D0",
+    "start_ms": 298639,
+    "end_ms": 364479
+   },
+   {
+    "video_id": "lTAcCNbJ7KE",
+    "start_ms": 215700,
+    "end_ms": 274260
+   },
+   {
+    "video_id": "uq-JpclPQV4",
+    "start_ms": 95439,
+    "end_ms": 112399
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q207",
+  "query": "service discovery",
+  "scope": [
+   "uq-JpclPQV4",
+   "lTAcCNbJ7KE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "uq-JpclPQV4",
+    "start_ms": 188879,
+    "end_ms": 264080
+   },
+   {
+    "video_id": "lTAcCNbJ7KE",
+    "start_ms": 188580,
+    "end_ms": 205740
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q208",
+  "query": "why are websockets hard to load balance",
+  "scope": [
+   "uq-JpclPQV4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "uq-JpclPQV4",
+    "start_ms": 491199,
+    "end_ms": 521760
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q209",
+  "query": "at least once vs exactly once",
+  "scope": [
+   "uq-JpclPQV4",
+   "7_wkWQ9rB5I"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "uq-JpclPQV4",
+    "start_ms": 383680,
+    "end_ms": 411919
+   },
+   {
+    "video_id": "7_wkWQ9rB5I",
+    "start_ms": 249040,
+    "end_ms": 263840
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q210",
+  "query": "blue green deployment",
+  "scope": [
+   "AWVTKBUnoIg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "AWVTKBUnoIg",
+    "start_ms": 197280,
+    "end_ms": 338580
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q211",
+  "query": "canary deployment",
+  "scope": [
+   "AWVTKBUnoIg",
+   "42UP1fxi2SY",
+   "xSPA2yBgDgA"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "AWVTKBUnoIg",
+    "start_ms": 338580,
+    "end_ms": 469620
+   },
+   {
+    "video_id": "42UP1fxi2SY",
+    "start_ms": 227580,
+    "end_ms": 256380
+   },
+   {
+    "video_id": "xSPA2yBgDgA",
+    "start_ms": 192280,
+    "end_ms": 200920
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "130s, 29s and 8s spans for the same concept -- a hard test for length-sensitive scoring"
+ },
+ {
+  "id": "q212",
+  "query": "toggle debt",
+  "scope": [
+   "AWVTKBUnoIg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "AWVTKBUnoIg",
+    "start_ms": 538260,
+    "end_ms": 560399
+   }
+  ],
+  "query_type": "terse",
+  "note": "ASR renders 'feature toggles' as 'future tacos' just before this span"
+ },
+ {
+  "id": "q213",
+  "query": "which deployment strategy lets me target specific users",
+  "scope": [
+   "AWVTKBUnoIg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "AWVTKBUnoIg",
+    "start_ms": 416400,
+    "end_ms": 434639
+   },
+   {
+    "video_id": "AWVTKBUnoIg",
+    "start_ms": 486840,
+    "end_ms": 505319
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "answer is canary and feature toggles; rolling and blue-green explicitly say they cannot, which are strong negatives"
+ },
+ {
+  "id": "q214",
+  "query": "why is continuous deployment so hard for stateful systems",
+  "scope": [
+   "42UP1fxi2SY"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "42UP1fxi2SY",
+    "start_ms": 256380,
+    "end_ms": 296700
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q215",
+  "query": "feature flags separate deploy from release",
+  "scope": [
+   "42UP1fxi2SY"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "42UP1fxi2SY",
+    "start_ms": 210780,
+    "end_ms": 227580
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q216",
+  "query": "what makes a good ci test suite",
+  "scope": [
+   "42UP1fxi2SY"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "42UP1fxi2SY",
+    "start_ms": 79200,
+    "end_ms": 99660
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q217",
+  "query": "how risky are schema migrations",
+  "scope": [
+   "xSPA2yBgDgA"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "xSPA2yBgDgA",
+    "start_ms": 92400,
+    "end_ms": 106120
+   },
+   {
+    "video_id": "xSPA2yBgDgA",
+    "start_ms": 200920,
+    "end_ms": 216920
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "raised once during development and again at production rollout, 90s apart"
+ },
+ {
+  "id": "q218",
+  "query": "uat",
+  "scope": [
+   "xSPA2yBgDgA"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "xSPA2yBgDgA",
+    "start_ms": 173320,
+    "end_ms": 192280
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q219",
+  "query": "how many testers does testflight allow",
+  "scope": [
+   "RIX4ufelA58"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "RIX4ufelA58",
+    "start_ms": 137000,
+    "end_ms": 149280
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "a single number buried in a 5m walkthrough"
+ },
+ {
+  "id": "q220",
+  "query": "app store optimization",
+  "scope": [
+   "RIX4ufelA58"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "RIX4ufelA58",
+    "start_ms": 183200,
+    "end_ms": 212640
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q221",
+  "query": "react native or flutter tradeoff",
+  "scope": [
+   "RIX4ufelA58"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "RIX4ufelA58",
+    "start_ms": 45480,
+    "end_ms": 65720
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q222",
+  "query": "devops vs sre vs platform engineering",
+  "scope": [
+   "an8SrFtJBdM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "an8SrFtJBdM",
+    "start_ms": 33420,
+    "end_ms": 112980
+   },
+   {
+    "video_id": "an8SrFtJBdM",
+    "start_ms": 112980,
+    "end_ms": 174600
+   },
+   {
+    "video_id": "an8SrFtJBdM",
+    "start_ms": 174600,
+    "end_ms": 228900
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q223",
+  "query": "you build it you run it",
+  "scope": [
+   "an8SrFtJBdM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "an8SrFtJBdM",
+    "start_ms": 62580,
+    "end_ms": 79560
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q224",
+  "query": "load average",
+  "scope": [
+   "iJ_eIsA5E1U"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "iJ_eIsA5E1U",
+    "start_ms": 144680,
+    "end_ms": 190040
+   }
+  ],
+  "query_type": "terse",
+  "note": "ASR writes it as 'low average' everywhere, so this exact query never appears in the text"
+ },
+ {
+  "id": "q225",
+  "query": "which tool gives me historical performance data",
+  "scope": [
+   "iJ_eIsA5E1U"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "iJ_eIsA5E1U",
+    "start_ms": 312759,
+    "end_ms": 355479
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "answer is sar; the other five tools in this video are real-time and are strong negatives"
+ },
+ {
+  "id": "q226",
+  "query": "confirm there is a real problem before you start digging",
+  "scope": [
+   "iJ_eIsA5E1U",
+   "J8uAiZJMfzQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "iJ_eIsA5E1U",
+    "start_ms": 8639,
+    "end_ms": 87439
+   },
+   {
+    "video_id": "J8uAiZJMfzQ",
+    "start_ms": 111240,
+    "end_ms": 152640
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q227",
+  "query": "bin vs usr bin vs usr local bin",
+  "scope": [
+   "bbmWOjuFmgA"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "bbmWOjuFmgA",
+    "start_ms": 56680,
+    "end_ms": 118920
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q228",
+  "query": "proc vs sys",
+  "scope": [
+   "bbmWOjuFmgA"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "bbmWOjuFmgA",
+    "start_ms": 229000,
+    "end_ms": 286720
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q229",
+  "query": "what does usr stand for",
+  "scope": [
+   "bbmWOjuFmgA"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "bbmWOjuFmgA",
+    "start_ms": 90080,
+    "end_ms": 96920
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "a 7-second aside inside a 60s section about binaries"
+ },
+ {
+  "id": "q230",
+  "query": "setuid setgid and the sticky bit",
+  "scope": [
+   "4N4Q576i3zA"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "4N4Q576i3zA",
+    "start_ms": 115400,
+    "end_ms": 154120
+   },
+   {
+    "video_id": "4N4Q576i3zA",
+    "start_ms": 154120,
+    "end_ms": 185800
+   },
+   {
+    "video_id": "4N4Q576i3zA",
+    "start_ms": 185800,
+    "end_ms": 205760
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q231",
+  "query": "what does chmod 764 mean",
+  "scope": [
+   "4N4Q576i3zA"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "4N4Q576i3zA",
+    "start_ms": 80040,
+    "end_ms": 115400
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q232",
+  "query": "why does passwd need special permissions",
+  "scope": [
+   "4N4Q576i3zA"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "4N4Q576i3zA",
+    "start_ms": 137200,
+    "end_ms": 154120
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q233",
+  "query": "bios vs uefi",
+  "scope": [
+   "XpFsMB6FoOs"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "XpFsMB6FoOs",
+    "start_ms": 36040,
+    "end_ms": 63960
+   }
+  ],
+  "query_type": "comparison",
+  "note": "an on-screen comparison table is transcribed at 57463-57760 as duplicated near-zero-duration segments -- a chunker that keeps them creates a garbage chunk"
+ },
+ {
+  "id": "q234",
+  "query": "grub2",
+  "scope": [
+   "XpFsMB6FoOs"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "XpFsMB6FoOs",
+    "start_ms": 123360,
+    "end_ms": 159000
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q235",
+  "query": "systemd targets and runlevels",
+  "scope": [
+   "XpFsMB6FoOs"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "XpFsMB6FoOs",
+    "start_ms": 225720,
+    "end_ms": 255920
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q236",
+  "query": "what do i do when i cant reproduce the bug",
+  "scope": [
+   "J8uAiZJMfzQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "J8uAiZJMfzQ",
+    "start_ms": 201780,
+    "end_ms": 272820
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the reproducible case runs 152640-201780 and is the obvious wrong retrieval"
+ },
+ {
+  "id": "q237",
+  "query": "rubber duck",
+  "scope": [
+   "J8uAiZJMfzQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "J8uAiZJMfzQ",
+    "start_ms": 293700,
+    "end_ms": 309120
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q238",
+  "query": "tricolor mark and sweep",
+  "scope": [
+   "3Kqal7QaCCM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "3Kqal7QaCCM",
+    "start_ms": 145000,
+    "end_ms": 186480
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "ASR writes it as 'triol mark and sweep'"
+ },
+ {
+  "id": "q239",
+  "query": "young generation old generation",
+  "scope": [
+   "3Kqal7QaCCM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "3Kqal7QaCCM",
+    "start_ms": 50239,
+    "end_ms": 101240
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q240",
+  "query": "how does python handle circular references",
+  "scope": [
+   "3Kqal7QaCCM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "3Kqal7QaCCM",
+    "start_ms": 211959,
+    "end_ms": 231400
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q241",
+  "query": "what jvm flags should i set for heap size",
+  "scope": [
+   "3Kqal7QaCCM"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "the video names four Java collectors but never a single JVM flag; note the phrase 'as heap sizes grow' at 140480-145000 is a lexical magnet that should NOT be returned"
+ },
+ {
+  "id": "q242",
+  "query": "compiled vs interpreted vs bytecode",
+  "scope": [
+   "hnlz0YYCpBU"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "hnlz0YYCpBU",
+    "start_ms": 51000,
+    "end_ms": 104160
+   },
+   {
+    "video_id": "hnlz0YYCpBU",
+    "start_ms": 104160,
+    "end_ms": 157040
+   },
+   {
+    "video_id": "hnlz0YYCpBU",
+    "start_ms": 157040,
+    "end_ms": 231400
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q243",
+  "query": "just in time compilation",
+  "scope": [
+   "hnlz0YYCpBU"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "hnlz0YYCpBU",
+    "start_ms": 161800,
+    "end_ms": 188160
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q244",
+  "query": "the two chefs analogy",
+  "scope": [
+   "RlM9AfWf1WU"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "RlM9AfWf1WU",
+    "start_ms": 41600,
+    "end_ms": 53720
+   },
+   {
+    "video_id": "RlM9AfWf1WU",
+    "start_ms": 74480,
+    "end_ms": 82760
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "one chef illustrates concurrency, two chefs illustrate parallelism, 20s apart; this transcript also carries double-encoded HTML entities that need normalising before indexing"
+ },
+ {
+  "id": "q245",
+  "query": "context switching overhead",
+  "scope": [
+   "RlM9AfWf1WU",
+   "FqR5vESuKe0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "RlM9AfWf1WU",
+    "start_ms": 53720,
+    "end_ms": 63720
+   },
+   {
+    "video_id": "FqR5vESuKe0",
+    "start_ms": 173160,
+    "end_ms": 197700
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "one video explains it, the other gives the microsecond cost"
+ },
+ {
+  "id": "q246",
+  "query": "does concurrency give me parallelism",
+  "scope": [
+   "RlM9AfWf1WU"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "RlM9AfWf1WU",
+    "start_ms": 164440,
+    "end_ms": 212000
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q247",
+  "query": "why are arrays faster than linked lists even at the same complexity",
+  "scope": [
+   "ouipSd_5ivQ",
+   "x2CRZaN2xgM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "ouipSd_5ivQ",
+    "start_ms": 372360,
+    "end_ms": 464520
+   },
+   {
+    "video_id": "x2CRZaN2xgM",
+    "start_ms": 142440,
+    "end_ms": 161159
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "cache locality; neither span uses the words 'faster than linked lists' in that order"
+ },
+ {
+  "id": "q248",
+  "query": "r-tree",
+  "scope": [
+   "ouipSd_5ivQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "ouipSd_5ivQ",
+    "start_ms": 350580,
+    "end_ms": 372360
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q249",
+  "query": "which data structure powers undo",
+  "scope": [
+   "ouipSd_5ivQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "ouipSd_5ivQ",
+    "start_ms": 122520,
+    "end_ms": 149940
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q250",
+  "query": "big o notation",
+  "scope": [
+   "x2CRZaN2xgM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "x2CRZaN2xgM",
+    "start_ms": 14639,
+    "end_ms": 108960
+   }
+  ],
+  "query_type": "terse",
+  "note": "ASR writes 'runtime' as 'one time' and Big O as 'Pi o' in places"
+ },
+ {
+  "id": "q251",
+  "query": "why is row wise traversal faster than column wise",
+  "scope": [
+   "x2CRZaN2xgM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "x2CRZaN2xgM",
+    "start_ms": 129000,
+    "end_ms": 146200
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q252",
+  "query": "sram vs dram",
+  "scope": [
+   "lX4CrbXMsNQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "lX4CrbXMsNQ",
+    "start_ms": 61020,
+    "end_ms": 97800
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q253",
+  "query": "nvme vs sata",
+  "scope": [
+   "lX4CrbXMsNQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "lX4CrbXMsNQ",
+    "start_ms": 182940,
+    "end_ms": 201960
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q254",
+  "query": "how long does a tls handshake take",
+  "scope": [
+   "FqR5vESuKe0",
+   "RI9np1LWzqw"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "FqR5vESuKe0",
+    "start_ms": 333060,
+    "end_ms": 345120
+   },
+   {
+    "video_id": "RI9np1LWzqw",
+    "start_ms": 171660,
+    "end_ms": 180540
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "one video gives the number, the other says why it costs round trips"
+ },
+ {
+  "id": "q255",
+  "query": "how slow is a disk seek",
+  "scope": [
+   "FqR5vESuKe0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "FqR5vESuKe0",
+    "start_ms": 286680,
+    "end_ms": 298680
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q256",
+  "query": "how much slower is main memory than a cpu register",
+  "scope": [
+   "FqR5vESuKe0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "FqR5vESuKe0",
+    "start_ms": 114840,
+    "end_ms": 138480
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q257",
+  "query": "biggest drawback of splitting the database for microservices",
+  "scope": [
+   "lTAcCNbJ7KE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "lTAcCNbJ7KE",
+    "start_ms": 138900,
+    "end_ms": 161880
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q258",
+  "query": "rpc vs event streaming between services",
+  "scope": [
+   "lTAcCNbJ7KE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "lTAcCNbJ7KE",
+    "start_ms": 60240,
+    "end_ms": 87480
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q259",
+  "query": "four pillars of cloud native",
+  "scope": [
+   "p-88GN1WVs8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "p-88GN1WVs8",
+    "start_ms": 117300,
+    "end_ms": 184800
+   },
+   {
+    "video_id": "p-88GN1WVs8",
+    "start_ms": 184800,
+    "end_ms": 227940
+   },
+   {
+    "video_id": "p-88GN1WVs8",
+    "start_ms": 227940,
+    "end_ms": 304620
+   },
+   {
+    "video_id": "p-88GN1WVs8",
+    "start_ms": 304620,
+    "end_ms": 378900
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q260",
+  "query": "istio linkerd",
+  "scope": [
+   "p-88GN1WVs8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "p-88GN1WVs8",
+    "start_ms": 351360,
+    "end_ms": 362160
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q261",
+  "query": "is running on the cloud the same as being cloud native",
+  "scope": [
+   "p-88GN1WVs8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "p-88GN1WVs8",
+    "start_ms": 78840,
+    "end_ms": 117300
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q262",
+  "query": "why do i need an open table format on top of object storage",
+  "scope": [
+   "taSmwcqdkQk"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "taSmwcqdkQk",
+    "start_ms": 155520,
+    "end_ms": 216280
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "sits right after a 40s Snowflake sponsor read (90760-132400) that mentions Iceberg by name -- the ad is a strong lexical decoy"
+ },
+ {
+  "id": "q263",
+  "query": "data lake vs data warehouse vs lakehouse",
+  "scope": [
+   "taSmwcqdkQk"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "taSmwcqdkQk",
+    "start_ms": 12000,
+    "end_ms": 26600
+   },
+   {
+    "video_id": "taSmwcqdkQk",
+    "start_ms": 26600,
+    "end_ms": 42080
+   },
+   {
+    "video_id": "taSmwcqdkQk",
+    "start_ms": 380640,
+    "end_ms": 414360
+   }
+  ],
+  "query_type": "comparison",
+  "note": "definitions at the top, the choose-between-them verdict at the very bottom"
+ },
+ {
+  "id": "q264",
+  "query": "small files problem",
+  "scope": [
+   "taSmwcqdkQk"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "taSmwcqdkQk",
+    "start_ms": 344200,
+    "end_ms": 364600
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q265",
+  "query": "stages of a data pipeline",
+  "scope": [
+   "kGT4PcTEPP8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "kGT4PcTEPP8",
+    "start_ms": 28680,
+    "end_ms": 55560
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "this transcript has only 11 segments of ~28s -- the coarsest in the corpus, so span-level precision is capped here"
+ },
+ {
+  "id": "q266",
+  "query": "etl orchestration tools",
+  "scope": [
+   "kGT4PcTEPP8"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "kGT4PcTEPP8",
+    "start_ms": 175480,
+    "end_ms": 203360
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q267",
+  "query": "vertical vs horizontal partitioning",
+  "scope": [
+   "nBvDtj-p6VM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "nBvDtj-p6VM",
+    "start_ms": 32640,
+    "end_ms": 63600
+   },
+   {
+    "video_id": "nBvDtj-p6VM",
+    "start_ms": 63600,
+    "end_ms": 106240
+   }
+  ],
+  "query_type": "comparison",
+  "note": "distinct from the vertical/horizontal SCALING question in q147 -- tests whether retrieval separates two senses of the same adjective"
+ },
+ {
+  "id": "q268",
+  "query": "hash vs range vs directory based sharding",
+  "scope": [
+   "nBvDtj-p6VM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "nBvDtj-p6VM",
+    "start_ms": 124399,
+    "end_ms": 155120
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q269",
+  "query": "leaderless replication and quorums",
+  "scope": [
+   "nBvDtj-p6VM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "nBvDtj-p6VM",
+    "start_ms": 291639,
+    "end_ms": 312639
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q270",
+  "query": "how did discord build a low latency disk",
+  "scope": [
+   "O3PwuzCvAjI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "O3PwuzCvAjI",
+    "start_ms": 228960,
+    "end_ms": 348000
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q271",
+  "query": "why did discord move off cassandra",
+  "scope": [
+   "O3PwuzCvAjI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "O3PwuzCvAjI",
+    "start_ms": 78240,
+    "end_ms": 124260
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q272",
+  "query": "request coalescing",
+  "scope": [
+   "O3PwuzCvAjI"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "O3PwuzCvAjI",
+    "start_ms": 202680,
+    "end_ms": 228960
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q273",
+  "query": "how did hotstar handle a billion emoji reactions",
+  "scope": [
+   "UN1kW5AHid4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UN1kW5AHid4",
+    "start_ms": 52560,
+    "end_ms": 118640
+   },
+   {
+    "video_id": "UN1kW5AHid4",
+    "start_ms": 118640,
+    "end_ms": 179440
+   },
+   {
+    "video_id": "UN1kW5AHid4",
+    "start_ms": 179440,
+    "end_ms": 221240
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "three pipeline stages: Kafka+Go ingest, Spark aggregation, MQTT PubSub fan-out"
+ },
+ {
+  "id": "q274",
+  "query": "what numbers did hotstar actually improve",
+  "scope": [
+   "UN1kW5AHid4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UN1kW5AHid4",
+    "start_ms": 241920,
+    "end_ms": 257280
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q275",
+  "query": "how many servers does stack overflow run on",
+  "scope": [
+   "fKc050dvNIE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "fKc050dvNIE",
+    "start_ms": 111780,
+    "end_ms": 146280
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q276",
+  "query": "an architecture that ignores every trend and still works",
+  "scope": [
+   "fKc050dvNIE"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "fKc050dvNIE",
+    "start_ms": 78480,
+    "end_ms": 111780
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the span that lists microservices, CQRS, eventual consistency etc. is a list of things they DID NOT use -- a strong false-positive magnet for any of those queries"
+ },
+ {
+  "id": "q277",
+  "query": "monorepo vs microrepo",
+  "scope": [
+   "x3cANGNPyx0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "x3cANGNPyx0",
+    "start_ms": 76440,
+    "end_ms": 140640
+   },
+   {
+    "video_id": "x3cANGNPyx0",
+    "start_ms": 140640,
+    "end_ms": 214320
+   },
+   {
+    "video_id": "x3cANGNPyx0",
+    "start_ms": 235920,
+    "end_ms": 269880
+   },
+   {
+    "video_id": "x3cANGNPyx0",
+    "start_ms": 269880,
+    "end_ms": 320880
+   }
+  ],
+  "query_type": "comparison",
+  "note": "pros and cons of each; this transcript also has a duplicated intro glitch at 62132-63300 with near-zero-duration segments"
+ },
+ {
+  "id": "q278",
+  "query": "bazel and buck",
+  "scope": [
+   "x3cANGNPyx0"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "x3cANGNPyx0",
+    "start_ms": 140640,
+    "end_ms": 156480
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q279",
+  "query": "how did netflix end up with a second monolith",
+  "scope": [
+   "Uu32ggF-DWg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Uu32ggF-DWg",
+    "start_ms": 107040,
+    "end_ms": 126720
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the gateway aggregation layer becoming the new monolith; the ORIGINAL monolith at 26340-48540 is the decoy"
+ },
+ {
+  "id": "q280",
+  "query": "graphql federation",
+  "scope": [
+   "Uu32ggF-DWg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "Uu32ggF-DWg",
+    "start_ms": 126720,
+    "end_ms": 175260
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q281",
+  "query": "moving from serverless to a monolith cut costs 90 percent",
+  "scope": [
+   "JTp0TY_2hXM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "JTp0TY_2hXM",
+    "start_ms": 58920,
+    "end_ms": 123780
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "this transcript has a null title, so title-boosted retrieval has nothing to work with"
+ },
+ {
+  "id": "q282",
+  "query": "serverless first is not serverless only",
+  "scope": [
+   "JTp0TY_2hXM"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "JTp0TY_2hXM",
+    "start_ms": 137460,
+    "end_ms": 195180
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q283",
+  "query": "what sits between the browser and my application servers",
+  "scope": [
+   "_higfXfhjdo"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "_higfXfhjdo",
+    "start_ms": 28000,
+    "end_ms": 55960
+   },
+   {
+    "video_id": "_higfXfhjdo",
+    "start_ms": 55960,
+    "end_ms": 70520
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "load balancers/reverse proxies then CDN; ASR writes nginx as 'engine X' and HAProxy as 'XJ proxies'"
+ },
+ {
+  "id": "q284",
+  "query": "job queues and worker nodes",
+  "scope": [
+   "_higfXfhjdo"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "_higfXfhjdo",
+    "start_ms": 107000,
+    "end_ms": 122719
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q285",
+  "query": "mvc vs mvp vs mvvm",
+  "scope": [
+   "I5c7fBgvkNY"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "I5c7fBgvkNY",
+    "start_ms": 93079,
+    "end_ms": 124159
+   },
+   {
+    "video_id": "I5c7fBgvkNY",
+    "start_ms": 124159,
+    "end_ms": 169040
+   },
+   {
+    "video_id": "I5c7fBgvkNY",
+    "start_ms": 169040,
+    "end_ms": 218760
+   }
+  ],
+  "query_type": "comparison",
+  "note": "all three trace the same profile-picture example, so the spans are near-identical in embedding space"
+ },
+ {
+  "id": "q286",
+  "query": "viper",
+  "scope": [
+   "I5c7fBgvkNY"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "I5c7fBgvkNY",
+    "start_ms": 250360,
+    "end_ms": 290720
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q287",
+  "query": "two way data binding",
+  "scope": [
+   "I5c7fBgvkNY"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "I5c7fBgvkNY",
+    "start_ms": 169040,
+    "end_ms": 218760
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q288",
+  "query": "how does search decide what to crawl next",
+  "scope": [
+   "TByRaraQqW4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "TByRaraQqW4",
+    "start_ms": 37720,
+    "end_ms": 82760
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q289",
+  "query": "inverted index",
+  "scope": [
+   "TByRaraQqW4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "TByRaraQqW4",
+    "start_ms": 217160,
+    "end_ms": 237040
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q290",
+  "query": "how does a search engine know if jaguar is a cat or a car",
+  "scope": [
+   "TByRaraQqW4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "TByRaraQqW4",
+    "start_ms": 200200,
+    "end_ms": 217160
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q291",
+  "query": "what signals go into ranking",
+  "scope": [
+   "TByRaraQqW4"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "TByRaraQqW4",
+    "start_ms": 331040,
+    "end_ms": 356560
+   },
+   {
+    "video_id": "TByRaraQqW4",
+    "start_ms": 356560,
+    "end_ms": 370200
+   },
+   {
+    "video_id": "TByRaraQqW4",
+    "start_ms": 370200,
+    "end_ms": 387200
+   },
+   {
+    "video_id": "TByRaraQqW4",
+    "start_ms": 387200,
+    "end_ms": 400440
+   },
+   {
+    "video_id": "TByRaraQqW4",
+    "start_ms": 400440,
+    "end_ms": 414840
+   },
+   {
+    "video_id": "TByRaraQqW4",
+    "start_ms": 414840,
+    "end_ms": 430640
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "six ranking signals in six consecutive spans -- the deepest coverage test in the set"
+ },
+ {
+  "id": "q292",
+  "query": "chaos monkey",
+  "scope": [
+   "UuT61kf292A"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UuT61kf292A",
+    "start_ms": 29640,
+    "end_ms": 54840
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q293",
+  "query": "receiving a million packets per second",
+  "scope": [
+   "UuT61kf292A"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UuT61kf292A",
+    "start_ms": 105640,
+    "end_ms": 127039
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q294",
+  "query": "which blog post announced kafka",
+  "scope": [
+   "UuT61kf292A"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "UuT61kf292A",
+    "start_ms": 181000,
+    "end_ms": 206000
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "seven other Kafka videos in the corpus are strong distractors for anything containing 'kafka'"
+ },
+ {
+  "id": "q295",
+  "query": "the truetime paper",
+  "scope": [
+   "_kynGl5hr9U"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "_kynGl5hr9U",
+    "start_ms": 119320,
+    "end_ms": 143160
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q296",
+  "query": "raft vs paxos",
+  "scope": [
+   "_kynGl5hr9U"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "_kynGl5hr9U",
+    "start_ms": 378440,
+    "end_ms": 388440
+   }
+  ],
+  "query_type": "comparison"
+ },
+ {
+  "id": "q297",
+  "query": "attention is all you need",
+  "scope": [
+   "_kynGl5hr9U"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "_kynGl5hr9U",
+    "start_ms": 413640,
+    "end_ms": 439040
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q298",
+  "query": "which papers cover distributed nosql stores",
+  "scope": [
+   "_kynGl5hr9U"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "_kynGl5hr9U",
+    "start_ms": 56880,
+    "end_ms": 83480
+   },
+   {
+    "video_id": "_kynGl5hr9U",
+    "start_ms": 83480,
+    "end_ms": 119320
+   }
+  ],
+  "query_type": "aggregation",
+  "note": "Dynamo, then BigTable and Cassandra together"
+ },
+ {
+  "id": "q299",
+  "query": "mermaid",
+  "scope": [
+   "jCd6XfWLZsg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "jCd6XfWLZsg",
+    "start_ms": 66920,
+    "end_ms": 102080
+   }
+  ],
+  "query_type": "terse"
+ },
+ {
+  "id": "q300",
+  "query": "which diagram tool has the steepest learning curve",
+  "scope": [
+   "jCd6XfWLZsg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "jCd6XfWLZsg",
+    "start_ms": 118680,
+    "end_ms": 132120
+   }
+  ],
+  "query_type": "pointwise"
+ },
+ {
+  "id": "q301",
+  "query": "what stack would you pick before product market fit",
+  "scope": [
+   "7swoLEqABhQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "7swoLEqABhQ",
+    "start_ms": 54540,
+    "end_ms": 92460
+   },
+   {
+    "video_id": "7swoLEqABhQ",
+    "start_ms": 92460,
+    "end_ms": 133500
+   },
+   {
+    "video_id": "7swoLEqABhQ",
+    "start_ms": 133500,
+    "end_ms": 178080
+   }
+  ],
+  "query_type": "aggregation"
+ },
+ {
+  "id": "q302",
+  "query": "do early stage startups need tests",
+  "scope": [
+   "7swoLEqABhQ"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "7swoLEqABhQ",
+    "start_ms": 142620,
+    "end_ms": 158040
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the answer is a deliberately provocative 'no' -- opposite in sentiment to 42UP1fxi2SY at 79200-99660, which is a good contradiction probe"
+ },
+ {
+  "id": "q303",
+  "query": "deliberately over engineering a small site on aws",
+  "scope": [
+   "OTfYFl3rzjg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "OTfYFl3rzjg",
+    "start_ms": 15300,
+    "end_ms": 28800
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "this whole video is satire; every span reads like sincere architecture advice and will pollute serious AWS queries"
+ },
+ {
+  "id": "q304",
+  "query": "should i use dynamodb to track how long users hover",
+  "scope": [
+   "OTfYFl3rzjg"
+  ],
+  "gold_spans": [
+   {
+    "video_id": "OTfYFl3rzjg",
+    "start_ms": 123120,
+    "end_ms": 151320
+   }
+  ],
+  "query_type": "pointwise",
+  "note": "the span answers yes, sarcastically -- an answer-generation eval should catch that retrieval was right and the stance was not"
+ },
+ {
+  "id": "q305",
+  "query": "what is system design",
+  "scope": [
+   "q2MWdzhMq6A"
+  ],
+  "gold_spans": [],
+  "query_type": "absent",
+  "note": "a 1-minute channel anniversary video with zero technical content -- the cleanest possible negative document"
+ }
+]
