@@ -7,7 +7,7 @@ from src.db.models.source import Source
 from src.db.models.source_video import SourceVideo
 from src.db.models.thread import Thread
 from src.db.models.user import User
-from src.db.models.videos import Video
+from src.db.models.video import Video
 
 __all__ = [
     "Citation",
