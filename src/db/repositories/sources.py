@@ -3,9 +3,9 @@ from uuid import UUID
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from src.models.source import Source, SourceStatus, SourceType
-from src.models.source_video import SourceVideo
-from src.models.video import Video
+from src.db.models.source import Source, SourceStatus, SourceType
+from src.db.models.source_video import SourceVideo
+from src.db.models.video import Video
 
 
 def create_source(

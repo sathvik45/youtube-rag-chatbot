@@ -3,8 +3,8 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from src.models.citation import Citation
-from src.models.message import (
+from src.db.models.citation import Citation
+from src.db.models.message import (
     Message,
     MessageRole,
     MessageStatus,

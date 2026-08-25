@@ -3,7 +3,7 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from src.models.thread import Thread
+from src.db.models.thread import Thread
 
 
 def create_thread(
