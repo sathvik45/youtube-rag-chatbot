@@ -17,12 +17,22 @@ from sqlalchemy import select
 
 from src.db.models.citation import Citation
 from src.db.models.message import Message, MessageRole, MessageStatus
-from src.db.models.source import Source, SourceType
+from src.db.models.source import  SourceType, SourceStatus, Source
 from src.db.models.source_video import SourceVideo, SourceVideoStatus
 from src.db.models.thread import Thread
 from src.db.models.user import User
-from src.db.models.video import Video
+from src.db.models.video import TranscriptStatus, Video
+from src.db.repositories.videos import get_or_create_video, update_video_status, mark_video_ready
 from src.db.session import SessionLocal
+
+from src.db.repositories.sources import (attach_videos, create_pending_source,refresh_source_status)
+
+
+from src.db.models.ingestion_job import IngestionJobStatus, IngestionJob
+from src.db.repositories.ingestion_jobs import (create_ingestion_job, mark_job_running, mark_job_succeeded)
+
+from src.db.repositories.source_videos import update_source_video_status
+
 
 
 pytestmark = pytest.mark.skipif(
@@ -48,32 +58,138 @@ def test_core_persistence_chain_rolls_back() -> None:
         session.add(user)
         session.flush()
 
-        source = Source(
+        source = create_pending_source(
+            session,
             user_id=user.id,
             source_type=SourceType.VIDEO,
             submitted_value=f"https://www.youtube.com/watch?v={suffix[:11]}",
-        )
-        video = Video(
+        )       
+        assert source.status is SourceStatus.PENDING
+
+        video = get_or_create_video(
+            session,
             youtube_video_id=suffix[:11],
             canonical_url=f"https://www.youtube.com/watch?v={suffix[:11]}",
             title="Database smoke-test video",
         )
-        session.add_all([source, video])
-        session.flush()
+        assert video.transcript_status == TranscriptStatus.PENDING
 
-        source_video = SourceVideo(
+        reused_video = get_or_create_video(
+            session,
+            youtube_video_id=suffix[:11],
+            canonical_url=f"https://www.youtube.com/watch?v={suffix[:11]}",
+            title="a diff tittle should not create anoather row",
+        )
+        assert reused_video.id == video.id
+        # session.add(video)
+        # session.flush()
+
+        source_videos =  attach_videos(
+            session,
+            source_id=source.id,
+            video_ids= [video.id]
+        )
+        source_video = source_videos[0]
+
+        assert source_video.position == 0
+        assert source_video.status == SourceVideoStatus.PENDING
+
+        job = create_ingestion_job(
+            session,
+            source_id=source.id,
+            video_id=video.id
+        )
+
+        assert job.status == IngestionJobStatus.QUEUED
+        assert job.source_id == source.id
+        assert job.video_id == video.id
+
+        running_job = mark_job_running(
+            session,
+            job_id=job.id
+        )
+
+        assert running_job.id == job.id
+        assert running_job.status == IngestionJobStatus.RUNNING
+        assert running_job.attempts == 1
+        assert running_job.started_at is not None
+        assert running_job.error_message is None
+
+        processing_source_video = update_source_video_status(
+            session,
+            source_id= source.id,
+            video_id= video.id,
+            status=SourceVideoStatus.PROCESSING
+        )
+
+        assert processing_source_video.id == source_video.id
+        assert processing_source_video.status == SourceVideoStatus.PROCESSING
+        assert processing_source_video.error_message is None
+
+        processing_video = update_video_status(
+            session,
+            video=video,
+            status=TranscriptStatus.PROCESSING
+        )
+
+        assert processing_video.id == video.id
+        assert processing_video.transcript_status == TranscriptStatus.PROCESSING
+        assert processing_video.last_error is None
+
+
+        processing_source = refresh_source_status(
+            session,
+            source_id=source.id,
+        )
+
+        assert processing_source.id == source.id
+        assert processing_source.status == SourceStatus.PROCESSING
+
+        ready_video = mark_video_ready(
+            session,
+            video,
+            chunk_count=3,
+            vector_count=3,
+            title="Indexed database smoke-test video",
+        )
+
+        assert ready_video.transcript_status == TranscriptStatus.READY
+        assert ready_video.chunk_count == 3
+        assert ready_video.vector_count == 3
+
+        ready_source_video = update_source_video_status(
+            session,
             source_id=source.id,
             video_id=video.id,
-            position=0,
-            status=SourceVideoStatus.READY,
+            status=SourceVideoStatus.READY
         )
+        assert ready_source_video.status == SourceVideoStatus.READY
+        assert ready_source_video.error_message is None
+
+        succeeded_job = mark_job_succeeded(
+            session,
+            job_id=job.id,
+        )
+
+        assert succeeded_job.status == IngestionJobStatus.SUCCEEDED
+        assert succeeded_job.finished_at is not None
+
+        ready_source = refresh_source_status(
+            session,
+            source_id=source.id,
+        )
+        assert ready_source.status == SourceStatus.READY
+
+
         thread = Thread(
             user_id=user.id,
             source_id=source.id,
             title="Database smoke-test thread",
         )
-        session.add_all([source_video, thread])
+        session.add(thread)
         session.flush()
+
+        
 
         user_message = Message(
             thread_id=thread.id,
@@ -120,6 +236,34 @@ def test_core_persistence_chain_rolls_back() -> None:
             select(SourceVideo).where(SourceVideo.source_id == source.id)
         )
 
+        saved_video = session.scalar(
+            select(Video).where(Video.id == video.id)
+        )
+
+        assert saved_video is not None
+        assert saved_video.transcript_status == TranscriptStatus.READY
+        assert saved_video.last_error is None
+        assert saved_video.chunk_count == 3
+        assert saved_video.vector_count == 3
+
+
+        saved_source = session.scalar(
+            select(Source).where(Source.id == source.id)
+        )
+        assert saved_source is not None
+        assert saved_source.status == SourceStatus.READY
+
+        saved_job = session.scalar(
+            select(IngestionJob).where(IngestionJob.id == job.id)
+        )
+
+        assert saved_job is not None
+        assert saved_job.status == IngestionJobStatus.SUCCEEDED
+        assert saved_job.attempts == 1
+        assert saved_job.started_at is not None
+        assert saved_job.source_id == source.id 
+        assert saved_job.video_id == video.id
+
         assert [message.content for message in history] == [
             "What does the video cover?",
             "It covers the database smoke-test topic.",
@@ -132,9 +276,10 @@ def test_core_persistence_chain_rolls_back() -> None:
         assert saved_citation.video_id == video.id
         assert saved_citation.verified is True
         assert saved_citation.verification_score == 1.0
+
         assert saved_source_video is not None
         assert saved_source_video.video_id == video.id
-        assert saved_source_video.status is SourceVideoStatus.READY
+        assert saved_source_video.status == SourceVideoStatus.READY
         completed_chain = True
     finally:
         transaction.rollback()

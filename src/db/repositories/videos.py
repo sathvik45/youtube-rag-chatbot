@@ -9,25 +9,28 @@ def get_video_by_id(db : Session, youtube_video_id : str) -> Video | None:
     statement = select(Video).where(Video.youtube_video_id == youtube_video_id)
     return db.scalar(statement)
 
-def create_video(db : Session, youtube_video_id : str, canonical_url : str, title : str, transcript_language : str | None = None) -> Video:
+def create_video(db : Session, youtube_video_id : str, canonical_url : str, title : str | None, transcript_language : str | None = None) -> Video:
     video = Video(youtube_video_id=youtube_video_id,canonical_url=canonical_url,title=title,transcript_language=transcript_language)
     db.add(video)
-    db.commit()
-    db.refresh(video)
+    db.flush()
     return video
 
-def get_or_create_video(db : Session,youtube_video_id : str, canonical_url : str, title : str, transcript_language : str | None = None)-> Video:
+def get_or_create_video(db : Session,youtube_video_id : str, canonical_url : str, title : str | None, transcript_language : str | None = None)-> Video:
     video = get_video_by_id(db=db,youtube_video_id=youtube_video_id)
     if video is not None:
         return video
     return create_video(db=db, youtube_video_id=youtube_video_id, canonical_url=canonical_url, title=title,transcript_language=transcript_language)
 
-def update_video_status(db: Session,video: Video,status: TranscriptStatus,last_error: str | None = None,) -> Video:
+def update_video_status(
+    db: Session,
+    video: Video,
+    status: TranscriptStatus,
+    last_error: str | None = None,
+) -> Video:
     video.transcript_status = status
     video.last_error = last_error
 
-    db.commit()
-    db.refresh(video)
+    db.flush()
 
     return video
 
@@ -69,5 +72,27 @@ def mark_video_indexed(
 
     db.commit()
     db.refresh(video)
+
+    return video
+
+def mark_video_ready(
+    db: Session,
+    video: Video,
+    *,
+    chunk_count: int,
+    vector_count: int,
+    title: str | None = None,
+) -> Video:
+    """Record a successfully indexed global video."""
+    if title is not None:
+        video.title = title
+
+    video.chunk_count = chunk_count
+    video.vector_count = vector_count
+    video.transcript_status = TranscriptStatus.READY
+    video.last_error = None
+    video.indexed_at = datetime.now(timezone.utc)
+
+    db.flush()
 
     return video
