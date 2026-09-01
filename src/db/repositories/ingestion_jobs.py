@@ -1,12 +1,12 @@
 from uuid import UUID
 
 from sqlalchemy.orm import Session
-
-from src.db.models.ingestion_job import IngestionJob
+from sqlalchemy import select
 
 from datetime import datetime, timezone
 
 from src.db.models.ingestion_job import IngestionJob, IngestionJobStatus
+
 
 def create_ingestion_job(
     session: Session,
@@ -97,3 +97,25 @@ def mark_job_retrying(
     session.flush()
 
     return job
+
+def list_runnable_jobs(
+    session: Session,
+    *,
+    source_id: UUID,
+) -> list[IngestionJob]:
+    """Return jobs that may be processed for one source."""
+    statement = (
+        select(IngestionJob)
+        .where(
+            IngestionJob.source_id == source_id,
+            IngestionJob.status.in_(
+                [
+                    IngestionJobStatus.QUEUED,
+                    IngestionJobStatus.RETRYING,
+                ]
+            ),
+        )
+        .order_by(IngestionJob.created_at, IngestionJob.id)
+    )
+
+    return list(session.scalars(statement))

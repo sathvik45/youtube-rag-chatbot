@@ -7,7 +7,28 @@ from src.db.models.source import Source, SourceStatus, SourceType
 from src.db.models.source_video import SourceVideo, SourceVideoStatus
 from src.db.models.video import Video
 
+from dataclasses import dataclass
+from src.db.models.ingestion_job import IngestionJob, IngestionJobStatus
 
+
+@dataclass(frozen=True)
+class SourceProgress:
+    source_id: UUID
+    source_status: SourceStatus
+    video_counts: dict[str, int]
+    job_counts: dict[str, int]
+
+    @property
+    def total_videos(self) -> int:
+        return sum(self.video_counts.values())
+
+    @property
+    def completed_videos(self) -> int:
+        return (
+            self.video_counts[SourceVideoStatus.READY.value]
+            + self.video_counts[SourceVideoStatus.NO_TRANSCRIPT.value]
+            + self.video_counts[SourceVideoStatus.FAILED.value]
+        )
 
 def create_source(
     db: Session,
@@ -58,51 +79,56 @@ def get_source(
     return db.scalar(statement)
 
 
-def get_ingestion_progress(
-    db: Session,
+def get_source_progress(
+    session: Session,
+    *,
     source_id: UUID,
-) -> dict:
-    statement = (
+) -> SourceProgress:
+    """Return status counts for one source and its ingestion jobs."""
+    source = session.get(Source, source_id)
+
+    if source is None:
+        raise LookupError(f"Source {source_id} was not found.")
+
+    video_counts = {
+        status.value: 0
+        for status in SourceVideoStatus
+    }
+    job_counts = {
+        status.value: 0
+        for status in IngestionJobStatus
+    }
+
+    source_video_rows = session.execute(
         select(
             SourceVideo.status,
             func.count(SourceVideo.id),
         )
         .where(SourceVideo.source_id == source_id)
         .group_by(SourceVideo.status)
+    ).all()
+
+    for status, count in source_video_rows:
+        video_counts[status.value] = count
+
+    job_rows = session.execute(
+        select(
+            IngestionJob.status,
+            func.count(IngestionJob.id),
+        )
+        .where(IngestionJob.source_id == source_id)
+        .group_by(IngestionJob.status)
+    ).all()
+
+    for status, count in job_rows:
+        job_counts[status.value] = count
+
+    return SourceProgress(
+        source_id=source.id,
+        source_status=source.status,
+        video_counts=video_counts,
+        job_counts=job_counts,
     )
-
-    rows = db.execute(statement).all()
-
-    progress = {
-        "pending": 0,
-        "processing": 0,
-        "ready": 0,
-        "failed": 0,
-    }
-
-    for status, count in rows:
-        progress[status] = count
-
-    total = sum(progress.values())
-
-    completed = (
-        progress["ready"]
-        + progress["failed"]
-    )
-
-    return {
-        "total": total,
-        "pending": progress["pending"],
-        "processing": progress["processing"],
-        "ready": progress["ready"],
-        "failed": progress["failed"],
-        "completed": completed,
-        "progress_percent": (
-            (completed / total) * 100
-            if total > 0
-            else 0
-        ),
-    }
 
 
 def create_pending_source(
