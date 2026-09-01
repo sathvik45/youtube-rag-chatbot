@@ -76,7 +76,9 @@ class Settings(BaseSettings):
     # layer validates that it is present before constructing an engine.
     database_url: str = Field(default="", alias="DATABASE_URL")
 
-    
+    jwt_secret_key: str = Field(default="",alias="JWT_SECRET_KEY", repr=False,)
+
+    access_token_expire_minutes: int = Field(default=30,alias="ACCESS_TOKEN_EXPIRE_MINUTES",)
 
     data_dir : Path = Field(default=Path("data"),alias="DATA_DIR")
     log_level : str =Field(default="INFO",alias="LOG_LEVEL")

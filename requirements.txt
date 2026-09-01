@@ -30,3 +30,6 @@ requests
 supadata
 langchain_pinecone
 pinecone
+
+pwdlib
+pyjwt
