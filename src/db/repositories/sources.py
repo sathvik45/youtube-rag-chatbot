@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from sqlalchemy import func, select
+from sqlalchemy import and_, func, or_, select
 from sqlalchemy.orm import Session
 
 from src.db.models.source import Source, SourceStatus, SourceType
@@ -10,6 +10,7 @@ from src.db.models.video import Video
 from dataclasses import dataclass
 from src.db.models.ingestion_job import IngestionJob, IngestionJobStatus
 
+from datetime import datetime
 
 @dataclass(frozen=True)
 class SourceProgress:
@@ -79,16 +80,56 @@ def get_source(
     return db.scalar(statement)
 
 
+def list_sources_for_user(
+    session: Session,
+    *,
+    user_id: UUID,
+    limit: int,
+    before_created_at: datetime | None = None,
+    before_id: UUID | None = None,
+) -> list[Source]:
+    """Return one newest-first page of sources owned by one user."""
+    if (before_created_at is None) != (before_id is None):
+        raise ValueError(
+            "before_created_at and before_id must be provided together."
+        )
+
+    statement = (
+        select(Source)
+        .where(Source.user_id == user_id)
+        .order_by(Source.created_at.desc(), Source.id.desc())
+        .limit(limit)
+    )
+
+    if before_created_at is not None and before_id is not None:
+        statement = statement.where(
+            or_(
+                Source.created_at < before_created_at,
+                and_(
+                    Source.created_at == before_created_at,
+                    Source.id < before_id,
+                ),
+            )
+        )
+
+    return list(session.scalars(statement))
+
 def get_source_progress(
     session: Session,
     *,
     source_id: UUID,
+    user_id: UUID | None = None,
 ) -> SourceProgress:
-    """Return status counts for one source and its ingestion jobs."""
-    source = session.get(Source, source_id)
+    statement = select(Source).where(Source.id == source_id)
+
+    if user_id is not None:
+        statement = statement.where(Source.user_id == user_id)
+
+    source = session.scalar(statement)
 
     if source is None:
         raise LookupError(f"Source {source_id} was not found.")
+
 
     video_counts = {
         status.value: 0

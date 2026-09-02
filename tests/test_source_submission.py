@@ -122,6 +122,8 @@ def test_submit_playlist_creates_videos_links_and_jobs(
         assert {job.id for job in jobs} == set(submission.job_ids)
         assert all(job.status == IngestionJobStatus.QUEUED for job in jobs)
         assert {job.video_id for job in jobs} == set(submission.video_ids)
+        assert all(job.available_at is not None for job in jobs)
+        assert all(job.lease_expires_at is None for job in jobs)
 
 def test_submit_source_reuses_ready_video_without_creating_job(
     transactional_session_factory,

@@ -9,11 +9,13 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     Text,
+    Index,
 )
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from src.db.base import Base
+
 
 
 class IngestionJobStatus(str, Enum):
@@ -26,6 +28,20 @@ class IngestionJobStatus(str, Enum):
 
 class IngestionJob(Base):
     __tablename__ = "ingestion_jobs"
+    __table_args__ = (
+        Index(
+            "ix_ingestion_jobs_runnable",
+            "status",
+            "available_at",
+            "created_at",
+            "id",
+        ),
+        Index(
+            "ix_ingestion_jobs_running_lease",
+            "status",
+            "lease_expires_at",
+        ),
+    )
 
     id: Mapped[UUID] = mapped_column(
         PG_UUID(as_uuid=True),
@@ -65,12 +81,23 @@ class IngestionJob(Base):
         default=0,
     )
 
+    available_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        nullable=False,
+        default=lambda: datetime.now(timezone.utc),
+    )
+
     error_message: Mapped[str | None] = mapped_column(
         Text,
         nullable=True,
     )
 
     started_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+    )
+
+    lease_expires_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True),
         nullable=True,
     )

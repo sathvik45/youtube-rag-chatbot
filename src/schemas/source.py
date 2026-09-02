@@ -1,12 +1,11 @@
 from uuid import UUID
-
-from pydantic import BaseModel, Field, field_validator
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, field_validator, Field
 
 
 class CreateSourceRequest(BaseModel):
     """Temporary development request; authentication will replace user_id."""
-
-    user_id: UUID
+    model_config = ConfigDict(extra="forbid")
     youtube_url: str = Field(
         min_length=1,
         max_length=2048,
@@ -36,3 +35,15 @@ class SourceProgressResponse(BaseModel):
     job_counts: dict[str, int]
     total_videos: int
     completed_videos: int
+
+class SourceListItem(BaseModel):
+    id: UUID
+    submitted_value: str
+    source_type: str
+    status: str
+    created_at: datetime
+
+
+class SourceListResponse(BaseModel):
+    items: list[SourceListItem]
+    next_cursor: str | None
