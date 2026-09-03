@@ -272,6 +272,82 @@ def test_worker_records_non_successful_ingestion(
         assert source.status == expected_source_status
 
 
+def test_worker_second_failure_uses_exponential_retry_backoff(
+    transactional_session_factory,
+) -> None:
+    suffix = uuid.uuid4().hex
+    youtube_video_id = suffix[:11]
+    error_message = "Second attempt still failed."
+
+    with transactional_session_factory() as session:
+        with session.begin():
+            user = User(
+                email=f"second-retry-{suffix}@example.invalid",
+                password_hash="test-only-not-a-real-password-hash",
+            )
+            session.add(user)
+            session.flush()
+
+            source = create_pending_source(
+                session,
+                user_id=user.id,
+                source_type=SourceType.VIDEO,
+                submitted_value=(
+                    f"https://www.youtube.com/watch?v={youtube_video_id}"
+                ),
+            )
+            video = get_or_create_video(
+                session,
+                youtube_video_id=youtube_video_id,
+                canonical_url=(
+                    f"https://www.youtube.com/watch?v={youtube_video_id}"
+                ),
+                title="Second retry backoff test video",
+            )
+            attach_videos(
+                session,
+                source_id=source.id,
+                video_ids=[video.id],
+            )
+            job = create_ingestion_job(
+                session,
+                source_id=source.id,
+                video_id=video.id,
+            )
+            job.status = IngestionJobStatus.RETRYING
+            job.attempts = 1
+            job.available_at = datetime.now(timezone.utc) - timedelta(seconds=1)
+
+            job_id = job.id
+
+    def fake_ingest(received_video_id: str) -> IngestResult:
+        assert received_video_id == youtube_video_id
+
+        return IngestResult(
+            video_id=received_video_id,
+            status=VideoStatus.ERROR,
+            error="test-error",
+            message=error_message,
+        )
+
+    result = run_ingestion_job(
+        job_id,
+        ingest=fake_ingest,
+        session_factory=transactional_session_factory,
+    )
+
+    assert result.status is VideoStatus.ERROR
+
+    with transactional_session_factory() as session:
+        job = session.get(IngestionJob, job_id)
+
+        assert job is not None
+        assert job.status is IngestionJobStatus.RETRYING
+        assert job.attempts == 2
+        assert job.finished_at is not None
+        assert job.available_at - job.finished_at == timedelta(minutes=1)
+
+
 def test_claim_next_job_marks_eligible_job_running(
     transactional_session_factory,
 ) -> None:
@@ -336,9 +412,31 @@ def test_claim_next_job_marks_eligible_job_running(
         assert job.status == IngestionJobStatus.RUNNING
         assert job.attempts == 1
 
-
-def test_requeue_expired_job_delays_its_next_attempt(
+@pytest.mark.parametrize(
+    ("attempts", "expected_status", "expected_retry_delay"),
+    [
+        (
+            1,
+            IngestionJobStatus.RETRYING,
+            timedelta(seconds=30),
+        ),
+        (
+            2,
+            IngestionJobStatus.RETRYING,
+            timedelta(minutes=1),
+        ),
+        (
+            3,
+            IngestionJobStatus.FAILED,
+            None,
+        ),
+    ],
+)
+def test_requeue_expired_job_schedules_retry_or_terminal_failure(
     transactional_session_factory,
+    attempts: int,
+    expected_status: IngestionJobStatus,
+    expected_retry_delay: timedelta | None,
 ) -> None:
     now = datetime(2026, 9, 2, tzinfo=timezone.utc)
     retry_delay = timedelta(seconds=30)
@@ -376,7 +474,7 @@ def test_requeue_expired_job_delays_its_next_attempt(
                 video_id=video.id,
             )
             job.status = IngestionJobStatus.RUNNING
-            job.attempts = 1
+            job.attempts = attempts
             job.started_at = now - timedelta(minutes=15)
             job.available_at = now - timedelta(minutes=15)
             job.lease_expires_at = now - timedelta(seconds=1)
@@ -397,12 +495,14 @@ def test_requeue_expired_job_delays_its_next_attempt(
         job = session.get(IngestionJob, job_id)
 
         assert job is not None
-        assert job.status == IngestionJobStatus.RETRYING
-        assert job.attempts == 1
+        assert job.status == expected_status
+        assert job.attempts == attempts
         assert job.finished_at == now
-        assert job.available_at == now + retry_delay
         assert job.lease_expires_at is None
         assert job.error_message == "Worker lease expired before completion."
+
+        if expected_retry_delay is not None:
+            assert job.available_at == now + expected_retry_delay
 
     with transactional_session_factory() as session:
         with session.begin():

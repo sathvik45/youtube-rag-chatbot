@@ -8,7 +8,32 @@ from src.db.models.ingestion_job import IngestionJob, IngestionJobStatus
 
 DEFAULT_INGESTION_JOB_LEASE = timedelta(minutes=15)
 DEFAULT_INGESTION_RETRY_DELAY = timedelta(seconds=30)
+MAX_INGESTION_RETRY_DELAY = timedelta(minutes=5)
 MAX_INGESTION_JOB_ATTEMPTS = 3
+
+def retry_delay_for_attempt(
+    attempts: int,
+    *,
+    base_delay: timedelta = DEFAULT_INGESTION_RETRY_DELAY,
+    max_delay: timedelta = MAX_INGESTION_RETRY_DELAY,
+) -> timedelta:
+    """Return a capped exponential delay for a claimed job attempt."""
+    if attempts <= 0:
+        raise ValueError("attempts must be positive.")
+
+    if base_delay <= timedelta():
+        raise ValueError("base_delay must be positive.")
+
+    if max_delay < base_delay:
+        raise ValueError("max_delay must be at least base_delay.")
+
+    delay = base_delay
+
+    for _ in range(attempts - 1):
+        delay = min(delay * 2, max_delay)
+
+    return delay
+
 def create_ingestion_job(
     session: Session,
     *,
@@ -171,7 +196,10 @@ def mark_job_retrying(
     job.status = IngestionJobStatus.RETRYING
     job.error_message = error_message
     job.finished_at = finished_at
-    job.available_at = finished_at + retry_delay
+    job.available_at = finished_at + retry_delay_for_attempt(
+        job.attempts,
+        base_delay=retry_delay,
+    )
     job.lease_expires_at = None
 
     session.flush()
@@ -210,7 +238,7 @@ def requeue_expired_ingestion_jobs(
     now: datetime,
     retry_delay: timedelta = DEFAULT_INGESTION_RETRY_DELAY,
 ) -> list[IngestionJob]:
-    """Move abandoned running jobs back to retrying."""
+    """Recover abandoned jobs, or fail them when their retry limit is exhausted."""
 
     if retry_delay <= timedelta():
         raise ValueError("retry_delay must be positive.")
@@ -232,11 +260,18 @@ def requeue_expired_ingestion_jobs(
     jobs = list(session.scalars(statement))
 
     for job in jobs:
-        job.status = IngestionJobStatus.RETRYING
         job.finished_at = now
-        job.available_at = now + retry_delay
         job.lease_expires_at = None
         job.error_message = "Worker lease expired before completion."
+
+        if job.attempts >= MAX_INGESTION_JOB_ATTEMPTS:
+            job.status = IngestionJobStatus.FAILED
+        else:
+            job.status = IngestionJobStatus.RETRYING
+            job.available_at = now + retry_delay_for_attempt(
+                job.attempts,
+                base_delay=retry_delay,
+            )
 
     session.flush()
 

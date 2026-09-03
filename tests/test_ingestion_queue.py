@@ -185,3 +185,114 @@ def test_queue_cycle_exits_cleanly_when_no_job_exists(
     assert cycle.claim_attempt is None
     assert cycle.ingest_result is None
     assert called is False
+
+def test_queue_cycle_marks_expired_final_attempt_as_failed(
+    transactional_session_factory,
+) -> None:
+    now = datetime(2026, 9, 2, tzinfo=timezone.utc)
+    suffix = uuid.uuid4().hex
+    youtube_video_id = suffix[:11]
+
+    with transactional_session_factory() as session:
+        with session.begin():
+            user = User(
+                email=f"expired-final-{suffix}@example.invalid",
+                password_hash="test-only-not-a-real-password-hash",
+            )
+            session.add(user)
+            session.flush()
+
+            source = create_pending_source(
+                session,
+                user_id=user.id,
+                source_type=SourceType.VIDEO,
+                submitted_value=(
+                    f"https://www.youtube.com/watch?v={youtube_video_id}"
+                ),
+            )
+            video = get_or_create_video(
+                session,
+                youtube_video_id=youtube_video_id,
+                canonical_url=(
+                    f"https://www.youtube.com/watch?v={youtube_video_id}"
+                ),
+                title="Expired final-attempt test video",
+            )
+            source_video = attach_videos(
+                session,
+                source_id=source.id,
+                video_ids=[video.id],
+            )[0]
+            job = create_ingestion_job(
+                session,
+                source_id=source.id,
+                video_id=video.id,
+            )
+
+            # Simulate a worker that had started attempt three, then crashed.
+            source.status = SourceStatus.PROCESSING
+            source_video.status = SourceVideoStatus.PROCESSING
+            video.transcript_status = TranscriptStatus.PROCESSING
+
+            job.status = IngestionJobStatus.RUNNING
+            job.attempts = 3
+            job.started_at = now - timedelta(minutes=15)
+            job.available_at = now - timedelta(minutes=15)
+            job.lease_expires_at = now - timedelta(seconds=1)
+
+            job_id = job.id
+            source_id = source.id
+            video_id = video.id
+
+    called = False
+
+    def fake_run_job(
+        claimed_job_id,
+        *,
+        claim_attempt: int,
+    ) -> IngestResult:
+        nonlocal called
+        called = True
+
+        return IngestResult(
+            video_id=str(claimed_job_id),
+            status=VideoStatus.OK,
+        )
+
+    cycle = run_one_ingestion_cycle(
+        session_factory=transactional_session_factory,
+        run_job=fake_run_job,
+        now_fn=lambda: now,
+    )
+
+    assert cycle.recovered_job_ids == (job_id,)
+    assert cycle.job_id is None
+    assert cycle.claim_attempt is None
+    assert cycle.ingest_result is None
+    assert called is False
+
+    with transactional_session_factory() as session:
+        job = session.get(IngestionJob, job_id)
+        source = session.get(Source, source_id)
+        video = session.get(Video, video_id)
+        source_video = session.scalar(
+            select(SourceVideo).where(
+                SourceVideo.source_id == source_id,
+                SourceVideo.video_id == video_id,
+            )
+        )
+
+        assert job is not None
+        assert job.status == IngestionJobStatus.FAILED
+        assert job.error_message == "Worker lease expired before completion."
+
+        assert source_video is not None
+        assert source_video.status == SourceVideoStatus.FAILED
+        assert source_video.error_message == "Worker lease expired before completion."
+
+        assert video is not None
+        assert video.transcript_status == TranscriptStatus.FAILED
+        assert video.last_error == "Worker lease expired before completion."
+
+        assert source is not None
+        assert source.status == SourceStatus.FAILED

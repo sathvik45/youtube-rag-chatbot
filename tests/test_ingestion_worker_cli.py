@@ -56,3 +56,29 @@ def test_once_is_required() -> None:
         main([])
 
     assert error.value.code == 2
+
+def test_loop_waits_when_queue_is_idle(capsys) -> None:
+    idle_result = WorkerCycleResult(
+        recovered_job_ids=(),
+        job_id=None,
+        claim_attempt=None,
+        ingest_result=None,
+    )
+    slept_for: list[float] = []
+
+    def stop_after_first_sleep(seconds: float) -> None:
+        slept_for.append(seconds)
+        raise KeyboardInterrupt
+
+    exit_code = main(
+        ["--loop", "--poll-interval", "0.25"],
+        run_cycle=lambda: idle_result,
+        sleep_fn=stop_after_first_sleep,
+    )
+
+    assert exit_code == 0
+    assert slept_for == [0.25]
+
+    output = capsys.readouterr().out
+    assert "No runnable ingestion job found." in output
+    assert "Worker stopped." in output
