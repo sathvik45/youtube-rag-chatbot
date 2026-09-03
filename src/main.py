@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 
-from src.api.routes.sources import router as sources_router
 from src.api.routes.auth import router as auth_router
+from src.api.routes.sources import router as sources_router
+from src.api.routes.threads import router as threads_router
 
 app = FastAPI(
     title="YouTube RAG API",
@@ -10,6 +11,7 @@ app = FastAPI(
 
 app.include_router(auth_router)
 app.include_router(sources_router)
+app.include_router(threads_router)
 
 
 

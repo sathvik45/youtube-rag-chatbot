@@ -7,20 +7,21 @@ from src.db.models.thread import Thread
 
 
 def create_thread(
-    db: Session,
+    session: Session,
+    *,
     user_id: UUID,
     source_id: UUID,
     title: str,
 ) -> Thread:
+    """Add a thread to the caller's transaction without committing it."""
     thread = Thread(
         user_id=user_id,
         source_id=source_id,
         title=title,
     )
 
-    db.add(thread)
-    db.commit()
-    db.refresh(thread)
+    session.add(thread)
+    session.flush()
 
     return thread
 

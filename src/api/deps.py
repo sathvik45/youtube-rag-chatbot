@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from src.db.session import SessionLocal, get_db
 from src.services.source_submission import SourceSubmission, submit_source
+from src.services.threads import CreatedThread, create_thread_for_source
 
 from src.core.security import create_access_token
 from src.services.auth import (
@@ -27,6 +28,7 @@ from src.db.models.source import Source
 
 SourceSubmitter = Callable[[UUID, str], SourceSubmission]
 SourceProgressReader = Callable[[UUID, UUID], SourceProgress]
+ThreadCreator = Callable[[UUID, UUID, str], CreatedThread]
 
 RegistrationService = Callable[[str, str], RegisteredUser]
 AuthenticationService = Callable[[str, str], AuthenticatedUser]
@@ -46,6 +48,24 @@ def get_source_submitter() -> SourceSubmitter:
 def get_session_factory() -> DatabaseSessionFactory:
     """Provide a factory for short-lived database sessions."""
     return SessionLocal
+
+
+def get_thread_creator(
+    session_factory: DatabaseSessionFactory = Depends(get_session_factory),
+) -> ThreadCreator:
+    def create(
+        user_id: UUID,
+        source_id: UUID,
+        title: str,
+    ) -> CreatedThread:
+        return create_thread_for_source(
+            user_id,
+            source_id,
+            title,
+            session_factory=session_factory,
+        )
+
+    return create
 
 def get_source_progress_reader(
     session: Session = Depends(get_db),
