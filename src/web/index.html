@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="A local browser interface for the YouTube RAG application."
+    >
+    <title>YouTube RAG</title>
+    <link rel="stylesheet" href="/ui/styles.css">
+    <script defer src="/ui/app.js"></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="/" aria-label="YouTube RAG home">YouTube RAG</a>
+      <span class="environment-label">Local development</span>
+    </header>
+
+    <main class="page">
+      <p id="notice" class="notice" role="status" aria-live="polite"></p>
+
+      <section id="auth-view" class="auth-view">
+        <div class="intro">
+          <p class="eyebrow">Grounded chat, scoped to your videos</p>
+          <h1>Ask questions about what you upload.</h1>
+          <p>
+            Add a YouTube video or playlist, wait for processing, then chat
+            only with the videos in that thread.
+          </p>
+        </div>
+
+        <div class="auth-grid">
+          <form id="login-form" class="card form-card">
+            <h2>Sign in</h2>
+            <label>
+              Email
+              <input
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+              >
+            </label>
+            <label>
+              Password
+              <input
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+              >
+            </label>
+            <button type="submit">Sign in</button>
+          </form>
+
+          <form id="register-form" class="card form-card">
+            <h2>Create account</h2>
+            <label>
+              Email
+              <input
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+              >
+            </label>
+            <label>
+              Password
+              <input
+                name="password"
+                type="password"
+                autocomplete="new-password"
+                minlength="8"
+                required
+              >
+            </label>
+            <button type="submit">Create account</button>
+            <p class="muted">You will be signed in after registration.</p>
+          </form>
+        </div>
+      </section>
+
+      <section id="workspace" class="workspace hidden">
+        <div class="workspace-heading">
+          <div>
+            <p class="eyebrow">Your workspace</p>
+            <h1>Videos, chats, and evidence</h1>
+          </div>
+          <div class="account-actions">
+            <span id="current-email" class="muted"></span>
+            <button id="logout-button" class="secondary" type="button">
+              Log out
+            </button>
+          </div>
+        </div>
+
+        <div class="workspace-grid">
+          <aside class="panel sources-panel">
+            <div class="panel-heading">
+              <h2>Videos &amp; playlists</h2>
+              <button id="refresh-sources" class="icon-button" type="button">
+                Refresh
+              </button>
+            </div>
+
+            <form id="source-form" class="stacked-form">
+              <label>
+                YouTube URL
+                <input
+                  name="youtube_url"
+                  type="url"
+                  inputmode="url"
+                  placeholder="https://www.youtube.com/watch?v=..."
+                  required
+                >
+              </label>
+              <button type="submit">Add source</button>
+            </form>
+
+            <p class="help-text">
+              Processing happens in the background worker. This page updates
+              while a source is pending or processing.
+            </p>
+            <div id="source-list" class="list" aria-live="polite"></div>
+          </aside>
+
+          <aside class="panel threads-panel">
+            <div class="panel-heading">
+              <h2>Chats</h2>
+              <button id="refresh-threads" class="icon-button" type="button">
+                Refresh
+              </button>
+            </div>
+            <p class="help-text">
+              Create a chat from a source once at least one video is ready.
+            </p>
+            <div id="thread-list" class="list" aria-live="polite"></div>
+          </aside>
+
+          <section class="panel chat-panel">
+            <div class="panel-heading chat-heading">
+              <div>
+                <h2 id="chat-title">Choose a chat</h2>
+                <p id="chat-subtitle" class="muted">
+                  Your messages and answers stay inside the selected thread.
+                </p>
+              </div>
+              <span id="chat-status" class="status-badge hidden"></span>
+            </div>
+
+            <div id="message-list" class="message-list" aria-live="polite">
+              <p class="empty-state">
+                Create or select a chat to view its saved conversation.
+              </p>
+            </div>
+
+            <form id="message-form" class="message-form">
+              <label class="sr-only" for="message-content">Your question</label>
+              <textarea
+                id="message-content"
+                name="content"
+                rows="3"
+                maxlength="8000"
+                placeholder="Ask a question about this thread's uploaded videos..."
+                disabled
+                required
+              ></textarea>
+              <button id="send-button" type="submit" disabled>Send</button>
+            </form>
+          </section>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
