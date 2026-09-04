@@ -5,6 +5,8 @@ outside a transaction, then save the assistant turn and citations.  This keeps
 database connections available while the slower network/model work happens.
 """
 
+import asyncio
+from time import perf_counter
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass
 from typing import Any, Protocol
@@ -25,11 +27,14 @@ from src.db.repositories.messages import (
 from src.db.repositories.sources import get_ready_videos_for_source
 from src.db.repositories.threads import get_thread_for_user, touch_thread
 from src.db.session import SessionLocal
+from src.core.config import settings
+from src.core.logging import get_logger
 from src.graph.build_graph import get_graph
 from src.rag.Citations import strip_answer
 
 
 SessionFactory = Callable[[], Session]
+log = get_logger(__name__)
 
 
 class ThreadNotFoundError(LookupError):
@@ -228,16 +233,26 @@ async def answer_thread_message(
     session_factory: SessionFactory = SessionLocal,
     graph: GraphLike | None = None,
     history_limit: int = 20,
+    rag_timeout_seconds: float | None = None,
 ) -> ChatTurn:
     """Answer one user turn using only videos linked to its owned thread.
 
     The graph call is intentionally made after the first transaction is
     committed and before the persistence transaction begins.  A slow LLM or
-    vector store therefore cannot hold a PostgreSQL connection or lock open.
+    vector store therefore cannot hold a PostgreSQL connection or lock open,
+    and the request-level deadline bounds how long the caller waits.
     """
     content = content.strip()
     if not content:
         raise ValueError("content cannot be blank.")
+
+    timeout_seconds = (
+        settings.chat_rag_timeout_seconds
+        if rag_timeout_seconds is None
+        else rag_timeout_seconds
+    )
+    if timeout_seconds <= 0:
+        raise ValueError("rag_timeout_seconds must be positive.")
 
     # Phase 1: authorize, derive scope from source links, and save the user
     # message before invoking any external RAG dependency.
@@ -279,11 +294,15 @@ async def answer_thread_message(
     finally:
         session.close()
 
+    rag_started_at = perf_counter()
     try:
         runnable = graph if graph is not None else get_graph()
-        graph_state = await runnable.ainvoke(
-            {"messages": graph_messages},
-            config={"configurable": {"video_ids": list(scoped_videos)}},
+        graph_state = await asyncio.wait_for(
+            runnable.ainvoke(
+                {"messages": graph_messages},
+                config={"configurable": {"video_ids": list(scoped_videos)}},
+            ),
+            timeout=timeout_seconds,
         )
         outcome = graph_state.get("outcome")
         if outcome not in {"answered", "refused_no_context"}:
@@ -301,6 +320,7 @@ async def answer_thread_message(
         if not answer:
             raise ValueError("Graph assistant message was blank.")
     except Exception as error:
+        rag_duration_ms = int((perf_counter() - rag_started_at) * 1000)
         try:
             _persist_temporary_error(
                 user_id=user_id,
@@ -311,7 +331,21 @@ async def answer_thread_message(
             # The route still returns a safe retryable error if the database is
             # unavailable while trying to record the provider failure.
             pass
+        failure_type = (
+            "timeout" if isinstance(error, TimeoutError) else type(error).__name__
+        )
+        log.warning(
+            "chat_turn_failed thread_id=%s user_message_id=%s "
+            "failure_type=%s rag_duration_ms=%s timeout_seconds=%s",
+            thread_id,
+            user_message_id,
+            failure_type,
+            rag_duration_ms,
+            timeout_seconds,
+        )
         raise ChatProviderError("Chat is temporarily unavailable.") from error
+
+    rag_duration_ms = int((perf_counter() - rag_started_at) * 1000)
 
     message_status = (
         MessageStatus.ANSWERED
@@ -361,7 +395,7 @@ async def answer_thread_message(
             )
             touch_thread(session, thread_id=thread.id)
 
-            return ChatTurn(
+            completed_turn = ChatTurn(
                 user_message_id=user_message_id,
                 assistant_message=ChatAssistantMessage(
                     id=assistant_message.id,
@@ -373,3 +407,19 @@ async def answer_thread_message(
             )
     finally:
         session.close()
+
+    # This runs after the transaction has committed, so the completion event
+    # never claims success for an assistant turn that failed to persist.
+    log.info(
+        "chat_turn_completed thread_id=%s user_message_id=%s "
+        "assistant_message_id=%s outcome=%s grounded=%s "
+        "citation_count=%s rag_duration_ms=%s",
+        thread_id,
+        user_message_id,
+        completed_turn.assistant_message.id,
+        outcome,
+        grounded,
+        len(completed_turn.assistant_message.citations),
+        rag_duration_ms,
+    )
+    return completed_turn

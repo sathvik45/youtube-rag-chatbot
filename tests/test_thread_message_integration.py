@@ -1,8 +1,9 @@
 """Opt-in integration tests for thread-scoped RAG messages.
 
-The graph is deliberately replaced with a recording fake.  These tests still
-exercise the real message service, database transactions, ownership checks,
-and FastAPI route; they just do not need an LLM, embeddings, or Pinecone.
+Most tests replace the graph with a recording fake. They still exercise the
+real message service, database transactions, ownership checks, and FastAPI
+route; the evidence-gate case below additionally uses the real graph with a
+fake vector store, never an LLM, embeddings, or Pinecone.
 """
 
 import os
@@ -12,6 +13,7 @@ from typing import Any
 
 import pytest
 from fastapi.testclient import TestClient
+from langchain_core.documents import Document
 from langchain_core.messages import AIMessage, BaseMessage
 from sqlalchemy import select
 from sqlalchemy.orm import Session, sessionmaker
@@ -27,7 +29,10 @@ from src.db.models.user import User
 from src.db.repositories.sources import attach_videos, create_pending_source
 from src.db.repositories.videos import get_or_create_video
 from src.db.session import engine
+from src.graph import nodes
+from src.graph.build_graph import build_graph
 from src.main import app
+from src.rag import retriever
 from src.services.chat import ChatTurn, answer_thread_message
 
 
@@ -490,4 +495,101 @@ def test_post_message_persists_a_structural_no_context_refusal(
     assert assistant_message.status == MessageStatus.REFUSED_NO_CONTEXT
     assert assistant_message.content == refusal
     assert assistant_message.grounded is None
+    assert persisted_citations == []
+
+
+def test_post_message_persists_real_graph_low_score_refusal(
+    transactional_session_factory,
+    transactional_client,
+    monkeypatch,
+) -> None:
+    """Low-scoring scoped chunks must not reach answer generation or citations."""
+    suffix = uuid.uuid4().hex
+    youtube_video_id = suffix[:11]
+
+    with transactional_session_factory() as session:
+        with session.begin():
+            owner = User(
+                email=f"gated-refusal-owner-{suffix}@example.invalid",
+                password_hash="test-only-not-a-real-password-hash",
+            )
+            session.add(owner)
+            session.flush()
+
+            thread, _ = _create_thread_source(
+                session,
+                owner=owner,
+                ready_youtube_video_id=youtube_video_id,
+                source_status=SourceStatus.READY,
+            )
+            owner_id = owner.id
+            thread_id = thread.id
+
+    class WeakMatchVectorStore:
+        def similarity_search_with_score(self, query, *, k, filter):
+            assert query == "Do they discuss an unrelated topic?"
+            assert k == 5
+            assert filter == {"video_id": youtube_video_id}
+            return [
+                (
+                    Document(
+                        page_content="A topically adjacent but weak chunk.",
+                        metadata={"video_id": youtube_video_id},
+                    ),
+                    0.49,
+                )
+            ]
+
+    monkeypatch.setattr(
+        retriever,
+        "get_vectorstore",
+        lambda: WeakMatchVectorStore(),
+    )
+    monkeypatch.setattr(nodes.settings, "score_threshold", 0.50)
+
+    async def generation_must_not_run(_state):
+        raise AssertionError("The no-answer branch must bypass generation.")
+
+    monkeypatch.setattr(nodes, "Generate_node", generation_must_not_run)
+    graph = build_graph()
+
+    async def handle(
+        user_id: uuid.UUID,
+        received_thread_id: uuid.UUID,
+        content: str,
+    ) -> ChatTurn:
+        return await answer_thread_message(
+            user_id,
+            received_thread_id,
+            content,
+            session_factory=transactional_session_factory,
+            graph=graph,
+        )
+
+    app.dependency_overrides[get_thread_message_handler] = lambda: handle
+    response = transactional_client.post(
+        f"/threads/{thread_id}/messages",
+        headers={"Authorization": f"Bearer {create_access_token(owner_id)}"},
+        json={"content": "Do they discuss an unrelated topic?"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["assistant_message"]["status"] == "refused_no_context"
+    assert body["assistant_message"]["grounded"] is None
+    assert body["assistant_message"]["citations"] == []
+
+    assistant_message_id = uuid.UUID(body["assistant_message"]["id"])
+    with transactional_session_factory() as session:
+        assistant_message = session.get(Message, assistant_message_id)
+        persisted_citations = list(
+            session.scalars(
+                select(Citation).where(
+                    Citation.message_id == assistant_message_id
+                )
+            )
+        )
+
+    assert assistant_message is not None
+    assert assistant_message.status is MessageStatus.REFUSED_NO_CONTEXT
     assert persisted_citations == []

@@ -121,7 +121,15 @@ async def rewrite_node(state: State) -> dict:
         log.warning("Discarding suspicious rewrite, using raw message")
         return {"query": latest}
 
-    log.info(f"rewrote: {latest!r} -> {query!r}")
+    # Query text is user content, not operational telemetry. Keep the event
+    # useful for latency/debugging work without copying chat content to logs.
+    log.info(
+        "query_rewritten history_message_count=%s input_char_count=%s "
+        "output_char_count=%s",
+        len(history),
+        len(latest),
+        len(query),
+    )
     return {"query": query}
 
 
@@ -144,11 +152,19 @@ def retrieve_node(state: State, config: RunnableConfig) -> dict:
         score_threshold=settings.score_threshold,
     )
 
-    log.info(f"retrieved {len(docs)} chunks over {len(scope)} video(s)")
+    log.info(
+        "retrieval_completed chunk_count=%s scope_video_count=%s "
+        "score_threshold=%s",
+        len(docs),
+        len(scope),
+        settings.score_threshold,
+    )
     if not docs:
         log.warning(
-            f"no chunks for {state['query']!r} "
-            f"(score_threshold={settings.score_threshold})"
+            "retrieval_no_qualifying_context scope_video_count=%s "
+            "score_threshold=%s",
+            len(scope),
+            settings.score_threshold,
         )
 
     return {
@@ -231,15 +247,22 @@ def cite_node(state: State) -> dict:
 
     resolved, hallucinated = resolve(answer, cmap)
     if hallucinated:
-        log.warning(f"model cited unknown ids: {hallucinated}")
+        log.warning(
+            "model_cited_unknown_context_ids count=%s",
+            len(hallucinated),
+        )
 
     checked = [c for c in resolved if c.get("verified") is not None]
     failed = [c for c in checked if c["verified"] is False]
 
     for c in failed:
         log.warning(
-            f"unverified quote (score={c.get('score')}) for {c['video_id']} "
-            f"@{c['label']}: {c.get('quote', '')[:80]!r}"
+            "unverified_citation video_id=%s start_ms=%s end_ms=%s "
+            "verification_score=%s",
+            c.get("video_id"),
+            c.get("start_ms"),
+            c.get("end_ms"),
+            c.get("score"),
         )
 
     # None when nothing was checkable -- distinct from False, which means
@@ -248,8 +271,11 @@ def cite_node(state: State) -> dict:
 
     citations = merge_adjacent(resolved)
     log.info(
-        f"{len(citations)} citation(s), "
-        f"{len(checked) - len(failed)}/{len(checked)} quotes verified"
+        "citation_resolution citation_count=%s verified_quote_count=%s "
+        "checked_quote_count=%s",
+        len(citations),
+        len(checked) - len(failed),
+        len(checked),
     )
     return {
         "citations": citations,

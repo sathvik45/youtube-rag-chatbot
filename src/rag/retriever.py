@@ -12,6 +12,11 @@ from langchain_core.documents import Document
 from src.rag.vector_store import get_vectorstore
 from src.core.logging import get_logger
 from src.core.config import settings
+from src.rag.evidence import (
+    ScoredCandidate,
+    candidate_fetch_limit,
+    select_evidence,
+)
 
 log = get_logger(__name__)
 
@@ -46,57 +51,98 @@ def retrieve(
     per_video_cap stops one long video from monopolising context in a playlist
     thread. Ignored for single-video scopes, where it has no meaning.
 
-    score_threshold drops weak matches. With cosine on normalised embeddings
-    scores run 0-1; measure on your golden set before setting it, since a
-    threshold that is too high silently returns nothing.
+    score_threshold drops weak matches. Its value is tied to the current
+    embedding model and Pinecone index, so calibrate it on the golden set
+    rather than guessing a universal cosine cutoff.
     """
-    vs = get_vectorstore()
-    scope = _scope_filter(video_ids)
-
     single = len(video_ids) == 1
-    fetch_k = k if (per_video_cap is None or single) else min(k * 4, k + 20 * len(video_ids))
+    candidates = retrieve_scored(
+        query,
+        video_ids,
+        k=k,
+        per_video_cap=per_video_cap,
+    )
+    selection = select_evidence(
+        candidates,
+        k=k,
+        per_video_cap=per_video_cap,
+        single_video=single,
+        score_threshold=score_threshold,
+    )
 
-    scored = vs.similarity_search_with_score(query, k=fetch_k, filter=scope)
+    top_score = candidates[0].score if candidates else None
+    log.info(
+        "retrieval_evidence_gate scope_video_count=%s candidate_count=%s "
+        "qualifying_count=%s selected_count=%s top_score=%s "
+        "score_threshold=%s",
+        len(video_ids),
+        len(candidates),
+        len(selection.qualifying),
+        len(selection.selected),
+        top_score,
+        score_threshold,
+    )
 
-    if score_threshold is not None:
-        before = len(scored)
-        scored = [(d, s) for d, s in scored if s >= score_threshold]
-        if not scored:
-            log.warning(
-                f"score_threshold={score_threshold} dropped all {before} results"
+    documents: list[Document] = []
+    for candidate in selection.selected:
+        candidate.value.metadata["score"] = candidate.score
+        documents.append(candidate.value)
+    return documents
+
+
+def retrieve_scored(
+    query: str,
+    video_ids: list[str],
+    *,
+    k: int,
+    per_video_cap: int | None = None,
+) -> list[ScoredCandidate[Document]]:
+    """Fetch the ranked, pre-threshold candidate pool for one scoped query.
+
+    The calibration capture calls this once per golden query, then replays
+    threshold choices locally. Production uses the same pool before applying
+    ``select_evidence``.
+    """
+    if k <= 0:
+        raise ValueError("k must be positive.")
+
+    scope = _scope_filter(video_ids)
+    fetch_k = candidate_fetch_limit(
+        k=k,
+        scope_size=len(video_ids),
+        per_video_cap=per_video_cap,
+    )
+    scored = get_vectorstore().similarity_search_with_score(
+        query,
+        k=fetch_k,
+        filter=scope,
+    )
+
+    candidates: list[ScoredCandidate[Document]] = []
+    for document, raw_score in scored:
+        video_id = document.metadata.get("video_id")
+        if not isinstance(video_id, str) or not video_id:
+            raise ValueError("retrieval returned a chunk without a video_id.")
+        if not document.page_content.strip():
+            # Treat a corrupt vector record as unusable evidence. Returning it
+            # would let the graph call the generator with an empty context.
+            log.warning("skipping_empty_retrieved_chunk video_id=%s", video_id)
+            continue
+
+        try:
+            score = float(raw_score)
+        except (TypeError, ValueError) as error:
+            raise ValueError("retrieval returned a non-numeric score.") from error
+
+        candidates.append(
+            ScoredCandidate(
+                value=document,
+                score=score,
+                video_id=video_id,
             )
+        )
 
-    for doc, score in scored:
-        doc.metadata["score"] = float(score)
-
-    candidates = [doc for doc, _ in scored]
-
-    if per_video_cap is None or single:
-        return candidates[:k]
-
-    return _cap_per_video(candidates, k, per_video_cap)
-
-
-def _cap_per_video(
-    candidates: list[Document], k: int, per_video_cap: int
-) -> list[Document]:
-    """Round-robin across videos so short videos are not crowded out by
-    whichever one happens to have the most chunks."""
-    by_video: dict[str, list[int]] = {}
-    for idx, doc in enumerate(candidates):
-        by_video.setdefault(doc.metadata["video_id"], []).append(idx)
-
-    picked: list[int] = []
-    for rank in range(per_video_cap):
-        for indices in by_video.values():
-            if rank < len(indices):
-                picked.append(indices[rank])
-        if len(picked) >= k:
-            break
-
-    # candidates is already in relevance order; restore it after round-robin
-    picked.sort()
-    return [candidates[i] for i in picked[:k]]
+    return candidates
 
 
 def retrieve_by_time(

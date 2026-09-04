@@ -36,20 +36,21 @@ class Settings(BaseSettings):
 
     supadata_api_key : str = Field(default="",alias="SUPADATA_API_KEY")
     
-    retrive_K : int = Field(default=5,alias="RETRIVE_K")
+    retrive_K : int = Field(default=5,alias="RETRIVE_K", gt=0)
 
     # Retrieval policy. These live here rather than in the node so the eval
     # runner and the graph exercise the same settings -- a knob that only
     # exists inside a node is a knob the golden set cannot measure.
     score_threshold : float | None = Field(
-        default=None, alias="SCORE_THRESHOLD",
-        description="Drop matches below this cosine score. None disables it, "
-                    "which means retrieval can never return empty and the "
-                    "graph can never legitimately refuse. Tune with "
-                    "run_retrieval_eval.py --score-threshold.",
+        default=None, alias="SCORE_THRESHOLD", allow_inf_nan=False,
+        description="Drop retrieval candidates below this provider score. "
+                    "None disables the score-based evidence gate. Tune it "
+                    "with a captured-candidate replay before enabling it; "
+                    "the right value depends on the current index, embedding "
+                    "model, and chunking configuration.",
     )
     per_video_cap : int | None = Field(
-        default=None, alias="PER_VIDEO_CAP",
+        default=None, alias="PER_VIDEO_CAP", gt=0,
         description="Max chunks per video in a playlist thread, so one long "
                     "video cannot monopolise context. Ignored when the thread "
                     "scopes a single video.",
@@ -79,6 +80,17 @@ class Settings(BaseSettings):
     jwt_secret_key: str = Field(default="",alias="JWT_SECRET_KEY", repr=False,)
 
     access_token_expire_minutes: int = Field(default=30,alias="ACCESS_TOKEN_EXPIRE_MINUTES",)
+
+    # A request-level guard around the whole graph invocation.  It prevents a
+    # user request from waiting forever when an LLM, embedding model, or vector
+    # store stalls.  Individual provider transport timeouts are a separate,
+    # lower-level hardening concern.
+    chat_rag_timeout_seconds: float = Field(
+        default=45.0,
+        alias="CHAT_RAG_TIMEOUT_SECONDS",
+        gt=0,
+        le=300,
+    )
 
     data_dir : Path = Field(default=Path("data"),alias="DATA_DIR")
     log_level : str =Field(default="INFO",alias="LOG_LEVEL")

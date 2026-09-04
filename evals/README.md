@@ -87,14 +87,26 @@ def retrieve_fn(query, video_ids, k):
     return [d.metadata for d in retrieve(query, video_ids, k=k)]
 ```
 
-That adapter is already wired up in `scorers/run_retrieval_eval.py`; run it with
+That adapter is wired into `scorers/run_retrieval_eval.py` through an explicit
+two-phase workflow. Capture candidate scores once from the real index, then
+replay threshold choices locally:
 
-```bash
-python -m evals.scorers.run_retrieval_eval --save
+```powershell
+python -m evals.scorers.run_retrieval_eval `
+  --capture-candidates evals/results/retrieval-candidates.json `
+  --allow-live-retrieval
+
+python -m evals.scorers.run_retrieval_eval `
+  --replay-candidates evals/results/retrieval-candidates.json `
+  --thresholds 0.10 0.15 0.20 0.25 `
+  --report evals/results/threshold-sweep.json
 ```
 
-`splitters.py` already writes all four keys onto every chunk in `_make_chunk`,
-so that adapter is the whole integration — nothing else needs changing.
+The capture is the only operation that contacts Pinecone; replay is offline.
+It applies the same score-threshold and per-video-cap ordering as production,
+and stores reproducibility metadata without transcript text or API keys. See
+[`docs/no-answer-gate.md`](../docs/no-answer-gate.md) for how to choose and
+activate a threshold.
 
 `junk_rate()` is the one part with no data behind it yet: it needs a set of
 boilerplate chunk ids in `"{video_id}#{chunk_index}"` form. The channel intro
