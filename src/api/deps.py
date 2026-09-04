@@ -7,6 +7,11 @@ from sqlalchemy.orm import Session
 from src.db.session import SessionLocal, get_db
 from src.services.source_submission import SourceSubmission, submit_source
 from src.services.threads import CreatedThread, create_thread_for_source
+from src.services.chat import (
+    ThreadMessageHandler,
+    answer_thread_message,
+    ChatTurn
+)
 
 from src.core.security import create_access_token
 from src.services.auth import (
@@ -66,6 +71,25 @@ def get_thread_creator(
         )
 
     return create
+
+
+def get_thread_message_handler(
+    session_factory: DatabaseSessionFactory = Depends(get_session_factory),
+) -> ThreadMessageHandler:
+    """Provide the async service that handles one persisted RAG turn."""
+    async def send(
+        user_id: UUID,
+        thread_id: UUID,
+        content: str,
+    ) -> ChatTurn:
+        return await answer_thread_message(
+            user_id,
+            thread_id,
+            content,
+            session_factory=session_factory,
+        )
+
+    return send
 
 def get_source_progress_reader(
     session: Session = Depends(get_db),

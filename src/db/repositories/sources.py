@@ -80,6 +80,30 @@ def get_source(
     return db.scalar(statement)
 
 
+def get_ready_videos_for_source(
+    session: Session,
+    *,
+    source_id: UUID,
+) -> list[Video]:
+    """Return the videos currently safe to use for one source-scoped chat.
+
+    SourceVideo is the ownership/scope link.  Checking its READY state here
+    protects a thread from retrieving from a video that is still ingesting or
+    that failed after the thread was created.
+    """
+    statement = (
+        select(Video)
+        .join(SourceVideo, SourceVideo.video_id == Video.id)
+        .where(
+            SourceVideo.source_id == source_id,
+            SourceVideo.status == SourceVideoStatus.READY,
+        )
+        .order_by(SourceVideo.position)
+    )
+
+    return list(session.scalars(statement))
+
+
 def list_sources_for_user(
     session: Session,
     *,

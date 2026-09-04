@@ -178,6 +178,7 @@ def refuse_node(state: State) -> dict:
         "context": "",
         "citations": [],
         "grounded": None,
+        "outcome": "refused_no_context",
     }
 
 
@@ -250,4 +251,8 @@ def cite_node(state: State) -> dict:
         f"{len(citations)} citation(s), "
         f"{len(checked) - len(failed)}/{len(checked)} quotes verified"
     )
-    return {"citations": citations, "grounded": grounded}
+    return {
+        "citations": citations,
+        "grounded": grounded,
+        "outcome": "answered",
+    }

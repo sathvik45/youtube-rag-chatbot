@@ -1,4 +1,4 @@
-from typing import TypedDict, List, Annotated
+from typing import Annotated, List, Literal, TypedDict
 
 from langchain_core.messages import BaseMessage
 from langgraph.graph.message import add_messages
@@ -42,3 +42,7 @@ class State(TypedDict):
     #         ungrounded regardless of how confident it reads
     # None  = nothing was checkable (no quotes emitted, or nothing retrieved)
     grounded: bool | None
+
+    # An explicit terminal outcome lets the API persist the correct message
+    # status without trying to infer intent from user-facing answer text.
+    outcome: Literal["answered", "refused_no_context"]

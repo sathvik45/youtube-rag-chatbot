@@ -12,11 +12,13 @@ from src.db.models.message import (
 
 
 def save_user_message(
-    db: Session,
+    session: Session,
+    *,
     thread_id: UUID,
     content: str,
     rewritten_query: str | None = None,
 ) -> Message:
+    """Add one user message to the caller's transaction."""
     message = Message(
         thread_id=thread_id,
         role=MessageRole.USER,
@@ -24,21 +26,21 @@ def save_user_message(
         rewritten_query=rewritten_query,
     )
 
-    db.add(message)
-    db.commit()
-    db.refresh(message)
+    session.add(message)
+    session.flush()
 
     return message
 
 
 def save_assistant_message(
-    db: Session,
+    session: Session,
+    *,
     thread_id: UUID,
     content: str,
-    *,
     grounded: bool | None = None,
     status: MessageStatus = MessageStatus.ANSWERED,
 ) -> Message:
+    """Add one assistant message to the caller's transaction."""
     message = Message(
         thread_id=thread_id,
         role=MessageRole.ASSISTANT,
@@ -47,18 +49,19 @@ def save_assistant_message(
         status=status,
     )
 
-    db.add(message)
-    db.commit()
-    db.refresh(message)
+    session.add(message)
+    session.flush()
 
     return message
 
 
 def save_citations(
-    db: Session,
+    session: Session,
+    *,
     message_id: UUID,
     citations: list[dict],
 ) -> list[Citation]:
+    """Add ordered citations to the caller's transaction."""
     citation_objects = [
         Citation(
             message_id=message_id,
@@ -66,8 +69,8 @@ def save_citations(
             start_ms=citation["start_ms"],
             end_ms=citation["end_ms"],
             youtube_url=citation["youtube_url"],
-            quote_text=citation["quote_text"],
-            verified=citation.get("verified", False),
+            quote_text=citation.get("quote_text"),
+            verified=citation.get("verified"),
             verification_score=citation.get(
                 "verification_score"
             ),
@@ -79,13 +82,31 @@ def save_citations(
         )
     ]
 
-    db.add_all(citation_objects)
-    db.commit()
-
-    for citation in citation_objects:
-        db.refresh(citation)
+    session.add_all(citation_objects)
+    session.flush()
 
     return citation_objects
+
+
+def set_user_message_rewritten_query(
+    session: Session,
+    *,
+    message_id: UUID,
+    rewritten_query: str | None,
+) -> Message:
+    """Store the graph's standalone retrieval query for one user message."""
+    message = session.get(Message, message_id)
+
+    if message is None:
+        raise LookupError(f"Message {message_id} was not found.")
+
+    if message.role is not MessageRole.USER:
+        raise ValueError(f"Message {message_id} is not a user message.")
+
+    message.rewritten_query = rewritten_query
+    session.flush()
+
+    return message
 
 
 def get_recent_messages(
