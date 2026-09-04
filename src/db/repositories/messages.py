@@ -1,6 +1,7 @@
+from datetime import datetime
 from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import and_, or_, select
 from sqlalchemy.orm import Session
 
 from src.db.models.citation import Citation
@@ -117,7 +118,7 @@ def get_recent_messages(
     statement = (
         select(Message)
         .where(Message.thread_id == thread_id)
-        .order_by(Message.created_at.desc())
+        .order_by(Message.created_at.desc(), Message.id.desc())
         .limit(limit)
     )
 
@@ -126,3 +127,60 @@ def get_recent_messages(
     messages.reverse()
 
     return messages
+
+
+def list_messages_for_thread(
+    session: Session,
+    *,
+    thread_id: UUID,
+    limit: int,
+    before_created_at: datetime | None = None,
+    before_id: UUID | None = None,
+) -> list[Message]:
+    """Return one newest-first page for a thread's recovery history."""
+    if (before_created_at is None) != (before_id is None):
+        raise ValueError(
+            "before_created_at and before_id must be provided together."
+        )
+
+    statement = (
+        select(Message)
+        .where(Message.thread_id == thread_id)
+        .order_by(Message.created_at.desc(), Message.id.desc())
+        .limit(limit)
+    )
+
+    if before_created_at is not None and before_id is not None:
+        statement = statement.where(
+            or_(
+                Message.created_at < before_created_at,
+                and_(
+                    Message.created_at == before_created_at,
+                    Message.id < before_id,
+                ),
+            )
+        )
+
+    return list(session.scalars(statement))
+
+
+def list_citations_for_messages(
+    session: Session,
+    *,
+    message_ids: list[UUID],
+) -> dict[UUID, list[Citation]]:
+    """Load citations for already-authorized thread messages in one query."""
+    if not message_ids:
+        return {}
+
+    statement = (
+        select(Citation)
+        .where(Citation.message_id.in_(message_ids))
+        .order_by(Citation.message_id, Citation.position)
+    )
+    citations_by_message: dict[UUID, list[Citation]] = {}
+
+    for citation in session.scalars(statement):
+        citations_by_message.setdefault(citation.message_id, []).append(citation)
+
+    return citations_by_message

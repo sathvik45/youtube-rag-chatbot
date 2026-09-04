@@ -23,7 +23,7 @@ from src.db.repositories.messages import (
     set_user_message_rewritten_query,
 )
 from src.db.repositories.sources import get_ready_videos_for_source
-from src.db.repositories.threads import get_thread_for_user
+from src.db.repositories.threads import get_thread_for_user, touch_thread
 from src.db.session import SessionLocal
 from src.graph.build_graph import get_graph
 from src.rag.Citations import strip_answer
@@ -215,6 +215,7 @@ def _persist_temporary_error(
                 grounded=None,
                 status=MessageStatus.TEMPORARY_ERROR,
             )
+            touch_thread(session, thread_id=thread.id)
     finally:
         session.close()
 
@@ -261,6 +262,9 @@ async def answer_thread_message(
                 thread_id=thread.id,
                 content=content,
             )
+            # Message inserts do not trigger Thread.updated_at's ORM onupdate
+            # hook, so mark sidebar activity explicitly in this transaction.
+            touch_thread(session, thread_id=thread.id)
             history = get_recent_messages(
                 session,
                 thread_id=thread.id,
@@ -355,6 +359,7 @@ async def answer_thread_message(
                 message_id=assistant_message.id,
                 citations=citation_rows,
             )
+            touch_thread(session, thread_id=thread.id)
 
             return ChatTurn(
                 user_message_id=user_message_id,

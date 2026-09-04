@@ -1,4 +1,5 @@
 from uuid import UUID
+from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -44,3 +45,20 @@ class AssistantMessageResponse(BaseModel):
 class ThreadMessageResponse(BaseModel):
     user_message_id: UUID
     assistant_message: AssistantMessageResponse
+
+
+class ThreadHistoryMessageResponse(BaseModel):
+    id: UUID
+    role: str
+    content: str
+    rewritten_query: str | None
+    grounded: bool | None
+    status: str
+    created_at: datetime
+    citations: list[CitationResponse]
+
+
+class ThreadHistoryResponse(BaseModel):
+    thread_id: UUID
+    items: list[ThreadHistoryMessageResponse]
+    next_cursor: str | None

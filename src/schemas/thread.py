@@ -28,3 +28,16 @@ class ThreadResponse(BaseModel):
     source_id: UUID
     title: str
     created_at: datetime
+
+
+class ThreadListItem(BaseModel):
+    id: UUID
+    source_id: UUID
+    title: str
+    created_at: datetime
+    updated_at: datetime
+
+
+class ThreadListResponse(BaseModel):
+    items: list[ThreadListItem]
+    next_cursor: str | None

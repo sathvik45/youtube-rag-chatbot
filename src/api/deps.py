@@ -7,6 +7,12 @@ from sqlalchemy.orm import Session
 from src.db.session import SessionLocal, get_db
 from src.services.source_submission import SourceSubmission, submit_source
 from src.services.threads import CreatedThread, create_thread_for_source
+from src.services.threads import (
+    ListedThread,
+    ThreadHistory,
+    get_thread_history_for_user,
+    list_threads_for_user,
+)
 from src.services.chat import (
     ThreadMessageHandler,
     answer_thread_message,
@@ -34,6 +40,14 @@ from src.db.models.source import Source
 SourceSubmitter = Callable[[UUID, str], SourceSubmission]
 SourceProgressReader = Callable[[UUID, UUID], SourceProgress]
 ThreadCreator = Callable[[UUID, UUID, str], CreatedThread]
+ThreadListReader = Callable[
+    [UUID, datetime | None, UUID | None, int],
+    list[ListedThread],
+]
+ThreadHistoryReader = Callable[
+    [UUID, UUID, datetime | None, UUID | None, int],
+    ThreadHistory,
+]
 
 RegistrationService = Callable[[str, str], RegisteredUser]
 AuthenticationService = Callable[[str, str], AuthenticatedUser]
@@ -90,6 +104,50 @@ def get_thread_message_handler(
         )
 
     return send
+
+
+def get_thread_list_reader(
+    session_factory: DatabaseSessionFactory = Depends(get_session_factory),
+) -> ThreadListReader:
+    """Provide a reader for the current user's active chat sidebar."""
+    def read_threads(
+        user_id: UUID,
+        before_updated_at: datetime | None,
+        before_id: UUID | None,
+        limit: int,
+    ) -> list[ListedThread]:
+        return list_threads_for_user(
+            user_id,
+            before_updated_at=before_updated_at,
+            before_id=before_id,
+            limit=limit,
+            session_factory=session_factory,
+        )
+
+    return read_threads
+
+
+def get_thread_history_reader(
+    session_factory: DatabaseSessionFactory = Depends(get_session_factory),
+) -> ThreadHistoryReader:
+    """Provide a reader for one owned thread's paginated recovery history."""
+    def read_history(
+        user_id: UUID,
+        thread_id: UUID,
+        before_created_at: datetime | None,
+        before_id: UUID | None,
+        limit: int,
+    ) -> ThreadHistory:
+        return get_thread_history_for_user(
+            user_id,
+            thread_id,
+            before_created_at=before_created_at,
+            before_id=before_id,
+            limit=limit,
+            session_factory=session_factory,
+        )
+
+    return read_history
 
 def get_source_progress_reader(
     session: Session = Depends(get_db),
