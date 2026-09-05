@@ -10,6 +10,7 @@ from src.services.threads import CreatedThread, create_thread_for_source
 from src.services.threads import (
     ListedThread,
     ThreadHistory,
+    delete_thread_for_user,
     get_thread_history_for_user,
     list_threads_for_user,
 )
@@ -44,6 +45,7 @@ ThreadListReader = Callable[
     [UUID, datetime | None, UUID | None, int],
     list[ListedThread],
 ]
+ThreadDeleter = Callable[[UUID, UUID], None]
 ThreadHistoryReader = Callable[
     [UUID, UUID, datetime | None, UUID | None, int],
     ThreadHistory,
@@ -109,7 +111,7 @@ def get_thread_message_handler(
 def get_thread_list_reader(
     session_factory: DatabaseSessionFactory = Depends(get_session_factory),
 ) -> ThreadListReader:
-    """Provide a reader for the current user's active chat sidebar."""
+    """Provide a reader for the current user's chat sidebar."""
     def read_threads(
         user_id: UUID,
         before_updated_at: datetime | None,
@@ -125,6 +127,23 @@ def get_thread_list_reader(
         )
 
     return read_threads
+
+
+def get_thread_deleter(
+    session_factory: DatabaseSessionFactory = Depends(get_session_factory),
+) -> ThreadDeleter:
+    """Provide permanent deletion for one owned chat."""
+    def delete(
+        user_id: UUID,
+        thread_id: UUID,
+    ) -> None:
+        delete_thread_for_user(
+            user_id,
+            thread_id,
+            session_factory=session_factory,
+        )
+
+    return delete
 
 
 def get_thread_history_reader(

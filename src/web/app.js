@@ -259,23 +259,204 @@ function renderThreads() {
 
   elements.threadList.replaceChildren();
   for (const thread of state.threads) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "thread-button";
+    const row = document.createElement("article");
+    row.className = "thread-row";
+
+    const selectButton = document.createElement("button");
+    selectButton.type = "button";
+    selectButton.className = "thread-button";
     if (thread.id === state.selectedThreadId) {
-      button.classList.add("is-selected");
+      selectButton.classList.add("is-selected");
+      selectButton.setAttribute("aria-current", "page");
     }
 
     const title = document.createElement("strong");
     title.textContent = thread.title;
-    const updated = document.createElement("span");
-    updated.textContent = "Updated " + formatDate(thread.updated_at);
-    button.append(title, updated);
-    button.addEventListener("click", async () => {
-      await selectThread(thread.id, thread.title);
+    const meta = document.createElement("span");
+    meta.textContent = "Updated " + formatDate(thread.updated_at);
+    selectButton.append(title, meta);
+    selectButton.addEventListener("click", async () => {
+      await selectThread(thread);
     });
-    elements.threadList.append(button);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.className = "thread-delete-button";
+    deleteButton.textContent = "Delete chat";
+    deleteButton.setAttribute(
+      "aria-label",
+      "Delete chat: " + thread.title,
+    );
+    deleteButton.addEventListener("click", async () => {
+      const confirmed = window.confirm(
+        'Delete "' +
+          thread.title +
+          '"? This permanently deletes this chat and all of its messages. ' +
+          "The uploaded source and its vector data will not be deleted.",
+      );
+      if (confirmed) {
+        await deleteThread(thread);
+      }
+    });
+
+    row.append(selectButton, deleteButton);
+    elements.threadList.append(row);
   }
+}
+
+function safeMarkdownUrl(value) {
+  if (typeof value !== "string") {
+    return null;
+  }
+
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" ? url.href : null;
+  } catch {
+    return null;
+  }
+}
+
+function appendInlineMarkdown(target, rawText) {
+  const text = String(rawText || "");
+  const pattern = /\*\*([^\n]+?)\*\*|`([^`\n]+)`|\[([^\]\n]+)\]\(([^()\s]+)\)/g;
+  let cursor = 0;
+
+  for (const match of text.matchAll(pattern)) {
+    const start = match.index ?? cursor;
+    target.append(document.createTextNode(text.slice(cursor, start)));
+
+    if (match[1] !== undefined) {
+      const strong = document.createElement("strong");
+      strong.textContent = match[1];
+      target.append(strong);
+    } else if (match[2] !== undefined) {
+      const code = document.createElement("code");
+      code.textContent = match[2];
+      target.append(code);
+    } else {
+      const url = safeMarkdownUrl(match[4]);
+      if (url) {
+        const link = document.createElement("a");
+        link.href = url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = match[3];
+        target.append(link);
+      } else {
+        target.append(document.createTextNode(match[0]));
+      }
+    }
+
+    cursor = start + match[0].length;
+  }
+
+  target.append(document.createTextNode(text.slice(cursor)));
+}
+
+function renderAssistantMarkdown(rawMessage) {
+  const fragment = document.createDocumentFragment();
+  const lines = String(rawMessage || "").replace(/\r\n?/g, "\n").split("\n");
+  let paragraphLines = [];
+  let activeList = null;
+  let codeLines = null;
+
+  const flushParagraph = () => {
+    if (!paragraphLines.length) {
+      return;
+    }
+
+    const paragraph = document.createElement("p");
+    appendInlineMarkdown(paragraph, paragraphLines.join(" "));
+    fragment.append(paragraph);
+    paragraphLines = [];
+  };
+
+  const closeList = () => {
+    activeList = null;
+  };
+
+  const appendCodeBlock = () => {
+    const pre = document.createElement("pre");
+    const code = document.createElement("code");
+    code.textContent = codeLines.join("\n");
+    pre.append(code);
+    fragment.append(pre);
+  };
+
+  for (const line of lines) {
+    const codeFence = line.match(/^```(?:[A-Za-z0-9_+-]+)?\s*$/);
+
+    if (codeLines !== null) {
+      if (codeFence) {
+        appendCodeBlock();
+        codeLines = null;
+      } else {
+        codeLines.push(line);
+      }
+      continue;
+    }
+
+    if (codeFence) {
+      flushParagraph();
+      closeList();
+      codeLines = [];
+      continue;
+    }
+
+    if (!line.trim()) {
+      flushParagraph();
+      closeList();
+      continue;
+    }
+
+    const heading = line.match(/^(#{1,3})\s+(.+?)\s*#*\s*$/);
+    if (heading) {
+      flushParagraph();
+      closeList();
+      const title = document.createElement("h" + (heading[1].length + 2));
+      appendInlineMarkdown(title, heading[2]);
+      fragment.append(title);
+      continue;
+    }
+
+    const quote = line.match(/^>\s?(.*)$/);
+    if (quote) {
+      flushParagraph();
+      closeList();
+      const blockquote = document.createElement("blockquote");
+      appendInlineMarkdown(blockquote, quote[1]);
+      fragment.append(blockquote);
+      continue;
+    }
+
+    const unorderedItem = line.match(/^\s*[-*+]\s+(.+)$/);
+    const orderedItem = line.match(/^\s*\d+[.)]\s+(.+)$/);
+    const listType = unorderedItem ? "ul" : orderedItem ? "ol" : null;
+
+    if (listType) {
+      flushParagraph();
+      if (!activeList || activeList.tagName.toLowerCase() !== listType) {
+        activeList = document.createElement(listType);
+        fragment.append(activeList);
+      }
+
+      const item = document.createElement("li");
+      appendInlineMarkdown(item, (unorderedItem || orderedItem)[1]);
+      activeList.append(item);
+      continue;
+    }
+
+    closeList();
+    paragraphLines.push(line.trim());
+  }
+
+  if (codeLines !== null) {
+    appendCodeBlock();
+  }
+  flushParagraph();
+
+  return fragment;
 }
 
 function renderMessages(messages) {
@@ -299,7 +480,11 @@ function renderMessages(messages) {
 
     const content = document.createElement("div");
     content.className = "message-content";
-    content.textContent = message.content;
+    if (message.role === "assistant") {
+      content.append(renderAssistantMarkdown(message.content));
+    } else {
+      content.textContent = message.content;
+    }
     article.append(role, content);
 
     if (message.role === "assistant") {
@@ -378,8 +563,9 @@ function resetChat() {
 }
 
 function setChatLoading(loading) {
-  elements.messageContent.disabled = loading || !state.selectedThreadId;
-  elements.sendButton.disabled = loading || !state.selectedThreadId;
+  const noSelectedChat = !state.selectedThreadId;
+  elements.messageContent.disabled = loading || noSelectedChat;
+  elements.sendButton.disabled = loading || noSelectedChat;
   elements.chatStatus.classList.toggle("hidden", !loading);
   elements.chatStatus.textContent = loading ? "Working…" : "";
 }
@@ -435,20 +621,19 @@ async function createThread(sourceId, title) {
     });
     setNotice("Chat created. You can ask a question now.", "success");
     await loadThreads();
-    await selectThread(thread.id, thread.title);
+    await selectThread(thread);
   } catch (error) {
     setNotice(error.message, "error");
   }
 }
 
-async function selectThread(threadId, title) {
-  state.selectedThreadId = threadId;
-  state.selectedThreadTitle = title;
-  elements.chatTitle.textContent = title;
+async function selectThread(thread) {
+  state.selectedThreadId = thread.id;
+  state.selectedThreadTitle = thread.title;
+  elements.chatTitle.textContent = thread.title;
   elements.chatSubtitle.textContent =
     "Answers are limited to this thread's uploaded source.";
-  elements.messageContent.disabled = false;
-  elements.sendButton.disabled = false;
+  setChatLoading(false);
   renderThreads();
 
   try {
@@ -458,6 +643,25 @@ async function selectThread(threadId, title) {
     setNotice(error.message, "error");
   } finally {
     setChatLoading(false);
+  }
+}
+
+async function deleteThread(thread) {
+  try {
+    await request("/threads/" + thread.id, {
+      method: "DELETE",
+    });
+
+    if (thread.id === state.selectedThreadId) {
+      resetChat();
+    }
+    await loadThreads();
+    setNotice(
+      "Chat deleted. Its uploaded source and vector data were kept.",
+      "success",
+    );
+  } catch (error) {
+    setNotice(error.message, "error");
   }
 }
 

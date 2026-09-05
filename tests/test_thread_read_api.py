@@ -38,7 +38,7 @@ def authenticated_user() -> AuthenticatedUser:
     )
 
 
-def test_list_threads_returns_a_newest_active_page(
+def test_list_threads_returns_a_newest_page(
     client,
     authenticated_user,
 ) -> None:

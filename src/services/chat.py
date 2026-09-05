@@ -206,7 +206,12 @@ def _persist_temporary_error(
     session = session_factory()
     try:
         with session.begin():
-            thread = get_thread_for_user(session, thread_id, user_id)
+            thread = get_thread_for_user(
+                session,
+                thread_id,
+                user_id,
+                for_update=True,
+            )
             if thread is None:
                 return
 
@@ -259,7 +264,12 @@ async def answer_thread_message(
     session = session_factory()
     try:
         with session.begin():
-            thread = get_thread_for_user(session, thread_id, user_id)
+            thread = get_thread_for_user(
+                session,
+                thread_id,
+                user_id,
+                for_update=True,
+            )
             if thread is None:
                 raise ThreadNotFoundError(f"Thread {thread_id} was not found.")
 
@@ -372,7 +382,12 @@ async def answer_thread_message(
     session = session_factory()
     try:
         with session.begin():
-            thread = get_thread_for_user(session, thread_id, user_id)
+            thread = get_thread_for_user(
+                session,
+                thread_id,
+                user_id,
+                for_update=True,
+            )
             if thread is None:
                 raise ThreadNotFoundError(f"Thread {thread_id} was not found.")
 

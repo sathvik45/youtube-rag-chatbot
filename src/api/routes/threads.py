@@ -1,13 +1,15 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 
 from src.api.deps import (
     ThreadCreator,
+    ThreadDeleter,
     ThreadHistoryReader,
     ThreadListReader,
     ThreadMessageHandler,
     get_current_user,
+    get_thread_deleter,
     get_thread_creator,
     get_thread_history_reader,
     get_thread_list_reader,
@@ -105,7 +107,7 @@ def list_threads(
     limit: int = Query(default=20, ge=1, le=100),
     thread_list_reader: ThreadListReader = Depends(get_thread_list_reader),
 ) -> ThreadListResponse:
-    """Return one newest-active page for the authenticated user's sidebar."""
+    """Return one newest page from the authenticated user's chat sidebar."""
     before_updated_at = None
     before_id = None
     if cursor is not None:
@@ -145,6 +147,30 @@ def list_threads(
         ],
         next_cursor=next_cursor,
     )
+
+
+@router.delete("/{thread_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_thread(
+    thread_id: UUID,
+    current_user: AuthenticatedUser = Depends(get_current_user),
+    thread_deleter: ThreadDeleter = Depends(
+        get_thread_deleter
+    ),
+) -> Response:
+    """Permanently delete an owned chat and its saved messages/citations."""
+    try:
+        thread_deleter(
+            current_user.id,
+            thread_id,
+        )
+    except LookupError as error:
+        # Ownership failures intentionally look identical to missing threads.
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Thread not found.",
+        ) from error
+
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.post("/{thread_id}/messages", response_model=ThreadMessageResponse)

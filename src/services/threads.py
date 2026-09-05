@@ -15,6 +15,7 @@ from src.db.repositories.messages import (
 from src.db.repositories.sources import get_source_progress
 from src.db.repositories.threads import (
     create_thread,
+    delete_thread,
     get_thread_for_user,
     list_user_threads,
 )
@@ -147,7 +148,7 @@ def list_threads_for_user(
     before_id: UUID | None = None,
     session_factory: SessionFactory = SessionLocal,
 ) -> list[ListedThread]:
-    """Read one tie-breaker-safe newest-active page from a live sidebar.
+    """Read one tie-breaker-safe newest-first page from the chat sidebar.
 
     Activity timestamps are intentionally mutable.  A client receiving a new
     chat event should refresh its sidebar rather than treating a long cursor
@@ -174,6 +175,33 @@ def list_threads_for_user(
                 )
                 for thread in threads
             ]
+    finally:
+        session.close()
+
+
+def delete_thread_for_user(
+    user_id: UUID,
+    thread_id: UUID,
+    *,
+    session_factory: SessionFactory = SessionLocal,
+) -> None:
+    """Permanently delete one owned chat but retain its source and vectors."""
+    session = session_factory()
+    try:
+        with session.begin():
+            thread = get_thread_for_user(
+                session,
+                thread_id,
+                user_id,
+                for_update=True,
+            )
+            if thread is None:
+                raise LookupError(f"Thread {thread_id} was not found.")
+
+            delete_thread(
+                session,
+                thread=thread,
+            )
     finally:
         session.close()
 

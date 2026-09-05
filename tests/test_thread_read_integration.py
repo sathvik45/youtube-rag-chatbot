@@ -107,7 +107,6 @@ def _create_thread(
     title: str,
     created_at: datetime,
     updated_at: datetime,
-    archived_at: datetime | None = None,
 ) -> Thread:
     thread = Thread(
         user_id=user_id,
@@ -115,7 +114,6 @@ def _create_thread(
         title=title,
         created_at=created_at,
         updated_at=updated_at,
-        archived_at=archived_at,
     )
     session.add(thread)
     session.flush()
@@ -134,7 +132,7 @@ def test_list_threads_is_owner_scoped_paginated_and_ordered_by_activity(
     suffix = uuid.uuid4().hex
     shared_time = datetime(2026, 9, 4, 12, 0, tzinfo=timezone.utc)
     newest_time = shared_time + timedelta(minutes=1)
-    hidden_time = newest_time + timedelta(minutes=1)
+    other_user_time = newest_time + timedelta(minutes=1)
 
     with transactional_session_factory() as session:
         with session.begin():
@@ -163,11 +161,6 @@ def test_list_threads_is_owner_scoped_paginated_and_ordered_by_activity(
                 session,
                 user_id=owner.id,
                 suffix=f"{suffix}tiedtwo",
-            )
-            archived_source = _create_source(
-                session,
-                user_id=owner.id,
-                suffix=f"{suffix}archive",
             )
             other_source = _create_source(
                 session,
@@ -199,22 +192,13 @@ def test_list_threads_is_owner_scoped_paginated_and_ordered_by_activity(
                 created_at=shared_time,
                 updated_at=shared_time,
             )
-            archived_thread = _create_thread(
-                session,
-                user_id=owner.id,
-                source_id=archived_source.id,
-                title="Archived chat",
-                created_at=shared_time,
-                updated_at=hidden_time,
-                archived_at=hidden_time,
-            )
             other_users_thread = _create_thread(
                 session,
                 user_id=other_user.id,
                 source_id=other_source.id,
                 title="Another user's newest chat",
                 created_at=shared_time,
-                updated_at=hidden_time,
+                updated_at=other_user_time,
             )
 
             owner_id = owner.id
@@ -268,7 +252,6 @@ def test_list_threads_is_owner_scoped_paginated_and_ordered_by_activity(
         tied_threads_descending[0].id,
         tied_threads_descending[1].id,
     ]
-    assert archived_thread.id not in returned_ids
     assert other_users_thread.id not in returned_ids
 
 

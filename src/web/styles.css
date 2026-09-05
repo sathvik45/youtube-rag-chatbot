@@ -251,15 +251,29 @@ label {
   margin: 0;
 }
 
+.panel-actions {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.panel-actions button {
+  font-size: 0.82rem;
+  padding: 0.45rem 0.65rem;
+}
+
 .list {
   display: grid;
   gap: 0.65rem;
 }
 
 .source-card,
-.thread-button {
+.thread-row {
   border: 1px solid #dfe6f1;
   border-radius: 0.7rem;
+  overflow: hidden;
+}
+
+.source-card {
   padding: 0.75rem;
 }
 
@@ -293,7 +307,10 @@ label {
 
 .thread-button {
   background: #fff;
+  border: 0;
+  border-radius: 0;
   color: #18212f;
+  padding: 0.75rem;
   text-align: left;
   width: 100%;
 }
@@ -301,12 +318,30 @@ label {
 .thread-button:hover:not(:disabled),
 .thread-button.is-selected {
   background: #edf3ff;
-  border-color: #b8ccf8;
+}
+
+.thread-button.is-selected {
+  box-shadow: inset 3px 0 0 #2457d6;
 }
 
 .thread-button strong,
 .thread-button span {
   display: block;
+}
+
+.thread-delete-button {
+  background: #fff0ef;
+  border-radius: 0;
+  border-top: 1px solid #dfe6f1;
+  color: #9a2922;
+  font-size: 0.8rem;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  width: 100%;
+}
+
+.thread-delete-button:hover:not(:disabled) {
+  background: #ffdeda;
 }
 
 .thread-button span {
@@ -367,6 +402,77 @@ label {
 .message-content {
   overflow-wrap: anywhere;
   white-space: pre-wrap;
+}
+
+.message.assistant .message-content {
+  white-space: normal;
+}
+
+.message.assistant .message-content > :first-child {
+  margin-top: 0;
+}
+
+.message.assistant .message-content > :last-child {
+  margin-bottom: 0;
+}
+
+.message.assistant .message-content p,
+.message.assistant .message-content ul,
+.message.assistant .message-content ol,
+.message.assistant .message-content blockquote,
+.message.assistant .message-content pre {
+  margin: 0.6rem 0;
+}
+
+.message.assistant .message-content ul,
+.message.assistant .message-content ol {
+  padding-left: 1.3rem;
+}
+
+.message.assistant .message-content li + li {
+  margin-top: 0.25rem;
+}
+
+.message.assistant .message-content h3,
+.message.assistant .message-content h4,
+.message.assistant .message-content h5 {
+  font-size: 1rem;
+  margin: 0.8rem 0 0.35rem;
+}
+
+.message.assistant .message-content blockquote {
+  border-left: 3px solid #8eabea;
+  color: #42516b;
+  padding-left: 0.65rem;
+}
+
+.message.assistant .message-content code {
+  background: #e7ebf2;
+  border-radius: 0.2rem;
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 0.9em;
+  padding: 0.1rem 0.25rem;
+}
+
+.message.assistant .message-content pre {
+  background: #1d2738;
+  border-radius: 0.45rem;
+  color: #edf3ff;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 0.7rem;
+  white-space: pre;
+}
+
+.message.assistant .message-content pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.message.assistant .message-content a {
+  color: #1e4dc2;
+  font-weight: 650;
 }
 
 .message-status {

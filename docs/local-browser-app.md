@@ -12,6 +12,8 @@ browser access to provider secrets.
 3. Poll its ingestion progress while the worker runs separately.
 4. Create a chat once at least one video is ready.
 5. Ask questions and read saved answers with their citations.
+6. Delete a chat when you no longer need its saved messages and citations.
+   Deleting a chat keeps its uploaded source and indexed vector data.
 
 Each chat remains scoped to the source used to create it. Adding another source
 does not broaden an existing chat.
@@ -60,6 +62,8 @@ running them inside an HTTP request would make the web app unreliable.
 - An unsupported question can return a normal saved refused_no_context
   response. That means the app found no usable evidence in that thread's
   videos; it is not a server failure.
+- Deleting a chat permanently removes that chat, its messages, and its saved
+  citations. It does not delete the uploaded source, videos, or vector data.
 
 For the API-only reference and a deliberate live-provider smoke test, see
 [live-rag-smoke-test.md](live-rag-smoke-test.md).

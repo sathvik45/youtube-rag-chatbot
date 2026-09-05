@@ -30,19 +30,10 @@ def create_thread(
 def get_user_threads(
     db: Session,
     user_id: UUID,
-    *,
-    include_archived: bool = False,
 ) -> list[Thread]:
-    statement = (
-        select(Thread)
-        .where(Thread.user_id == user_id)
-        .order_by(Thread.updated_at.desc(), Thread.id.desc())
+    statement = select(Thread).where(Thread.user_id == user_id).order_by(
+        Thread.updated_at.desc(), Thread.id.desc()
     )
-
-    if not include_archived:
-        statement = statement.where(
-            Thread.archived_at.is_(None)
-        )
 
     return list(db.scalars(statement).all())
 
@@ -55,7 +46,7 @@ def list_user_threads(
     before_updated_at: datetime | None = None,
     before_id: UUID | None = None,
 ) -> list[Thread]:
-    """Return one stable newest-active page of unarchived user threads."""
+    """Return one stable newest-first page of a user's chats."""
     if (before_updated_at is None) != (before_id is None):
         raise ValueError(
             "before_updated_at and before_id must be provided together."
@@ -63,10 +54,7 @@ def list_user_threads(
 
     statement = (
         select(Thread)
-        .where(
-            Thread.user_id == user_id,
-            Thread.archived_at.is_(None),
-        )
+        .where(Thread.user_id == user_id)
         .order_by(Thread.updated_at.desc(), Thread.id.desc())
         .limit(limit)
     )
@@ -85,10 +73,22 @@ def list_user_threads(
     return list(session.scalars(statement))
 
 
+def delete_thread(
+    session: Session,
+    *,
+    thread: Thread,
+) -> None:
+    """Delete one loaded thread; PostgreSQL cascades to its messages/citations."""
+    session.delete(thread)
+    session.flush()
+
+
 def get_thread_for_user(
     db: Session,
     thread_id: UUID,
     user_id: UUID,
+    *,
+    for_update: bool = False,
 ) -> Thread | None:
     statement = (
         select(Thread)
@@ -97,6 +97,9 @@ def get_thread_for_user(
             Thread.user_id == user_id,
         )
     )
+
+    if for_update:
+        statement = statement.with_for_update()
 
     return db.scalar(statement)
 
