@@ -102,7 +102,11 @@ def write_json(path: Path, data) -> None:
 
     os.replace is atomic on the same filesystem: readers see either the old
     file or the new one, never a truncated one.
+    create parent directory
+    → write temporary JSON file
+    → atomically replace final JSON file
     """
+    path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
     tmp.write_text(
         json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
