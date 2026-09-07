@@ -28,6 +28,7 @@ dependencies = [
     "python-dotenv>=1.2.2",
     "python-multipart>=0.0.32",
     "sentence-transformers>=5.7.0",
+    "torch>=2.13.0",
     "sqlalchemy>=2.0.52",
     "sse-starlette>=3.4.8",
     "supadata>=1.6.0",
@@ -40,3 +41,13 @@ rag-eval = "rag_eval:main"
 [build-system]
 requires = ["uv_build>=0.12.3,<0.13.0"]
 build-backend = "uv_build"
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
