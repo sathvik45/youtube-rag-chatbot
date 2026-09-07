@@ -106,7 +106,7 @@ from evals.scorers.deepeval_judge import GroqJudge  # noqa: E402
 from evals.scorers.oracle_context import build_cases, stratified_sample  # noqa: E402
 from src.core.config import PROJECT_ROOT, settings  # noqa: E402
 from src.core.logging import get_logger  # noqa: E402
-from src.Graph.nodes import NO_CONTEXT_MESSAGE, Generate_node  # noqa: E402
+from src.graph.nodes import NO_CONTEXT_MESSAGE, Generate_node  # noqa: E402
 from src.rag.Citations import build_context, resolve, strip_answer  # noqa: E402
 
 log = get_logger(__name__)

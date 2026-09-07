@@ -1,0 +1,42 @@
+# Secrets and local configuration
+.env
+.env.*
+
+# Local Python environments and caches
+.venv/
+venv/
+env/
+.uv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.pytest-tmp-*
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Generated, local, or non-portable state
+data/
+.deepeval/
+
+# Evaluation and test-only material
+tests/
+conftest.py
+docs/
+evals/
+
+# Build and editor artifacts
+build/
+dist/
+wheels/
+*.egg-info/
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Git metadata
+.git/
