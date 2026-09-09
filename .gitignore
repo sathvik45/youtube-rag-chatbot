@@ -16,3 +16,4 @@ venv/
 data/
 evals/results/
 .deepeval
+gha-creds-*.json
