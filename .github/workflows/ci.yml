@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test application
+    runs-on: ubuntu-latest
+
+    env:
+      DATABASE_URL: postgresql+psycopg://ci:ci@127.0.0.1:5432/rag_eval_ci
+      JWT_SECRET_KEY: ci-only-not-a-real-secret-at-least-32-characters
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v10
+        with:
+          version: "0.12.3"
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
+
+      - name: Install locked dependencies
+        run: uv sync --locked
+
+      - name: Run test suite
+        run: uv run pytest -q
+
+  docker-build:
+    name: Build Docker image
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Build Docker image
+        run: docker build --tag rag-eval:ci .
