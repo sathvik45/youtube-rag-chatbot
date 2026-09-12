@@ -1,0 +1,160 @@
+name: Deploy Cloud Run API
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: Exact tag from a successful Publish container image run
+        required: true
+        type: string
+      migration_review:
+        description: Confirm that migrations are complete or not needed
+        required: true
+        type: choice
+        default: not-confirmed
+        options:
+          - not-confirmed
+          - complete-or-not-needed
+      confirmation:
+        description: Explicitly confirm this API deployment
+        required: true
+        type: choice
+        default: do-not-deploy
+        options:
+          - do-not-deploy
+          - deploy-rag-eval-api
+
+concurrency:
+  group: deploy-rag-eval-api-production
+  cancel-in-progress: false
+
+permissions:
+  id-token: write
+
+jobs:
+  deploy:
+    name: Deploy API
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    environment:
+      name: production
+      url: https://rag-eval-api-832160935565.us-central1.run.app
+
+    env:
+      PROJECT_ID: selragchatbot
+      REGION: us-central1
+      SERVICE_NAME: rag-eval-api
+      IMAGE_URI: us-central1-docker.pkg.dev/selragchatbot/youtube-chatbot/rag-eval
+      IMAGE_TAG: ${{ inputs.image_tag }}
+      MIGRATION_REVIEW: ${{ inputs.migration_review }}
+      CONFIRMATION: ${{ inputs.confirmation }}
+    steps:
+      - name: Validate deployment request
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "$GITHUB_REF" != "refs/heads/main" ]]; then
+            echo "::error::Deployments must be run from main."
+            exit 1
+          fi
+
+          if [[ "$CONFIRMATION" != "deploy-rag-eval-api" ]]; then
+            echo "::error::Production deployment was not explicitly confirmed."
+            exit 1
+          fi
+
+          if [[ "$MIGRATION_REVIEW" != "complete-or-not-needed" ]]; then
+            echo "::error::Review whether this release needs a completed migration first."
+            exit 1
+          fi
+
+          if [[ ! "$IMAGE_TAG" =~ ^sha-[0-9a-f]{40}-run-[0-9]+-attempt-[0-9]+$ ]]; then
+            echo "::error::Use the exact image tag from Publish container image."
+            exit 1
+          fi
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
+        with:
+          project_id: selragchatbot
+          workload_identity_provider: projects/832160935565/locations/global/workloadIdentityPools/github-actions-pool/providers/github-provider
+          service_account: github-actions-deployer@selragchatbot.iam.gserviceaccount.com
+          create_credentials_file: true
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
+        with:
+          project_id: selragchatbot
+      - name: Record current ready revision
+        id: before
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          revision="$(gcloud run services describe "$SERVICE_NAME" \
+            --project "$PROJECT_ID" \
+            --region "$REGION" \
+            --format='value(status.latestReadyRevisionName)')"
+
+          if [[ -z "$revision" ]]; then
+            echo "::error::Could not find a ready API revision."
+            exit 1
+          fi
+
+          echo "revision=$revision" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy selected image
+        id: deploy
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          gcloud run services update "$SERVICE_NAME" \
+            --project "$PROJECT_ID" \
+            --region "$REGION" \
+            --image "${IMAGE_URI}:${IMAGE_TAG}" \
+            --quiet
+
+          url="$(gcloud run services describe "$SERVICE_NAME" \
+            --project "$PROJECT_ID" \
+            --region "$REGION" \
+            --format='value(status.url)')"
+
+          revision="$(gcloud run services describe "$SERVICE_NAME" \
+            --project "$PROJECT_ID" \
+            --region "$REGION" \
+            --format='value(status.latestReadyRevisionName)')"
+
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "revision=$revision" >> "$GITHUB_OUTPUT"
+      - name: Smoke-test health endpoint
+        env:
+          SERVICE_URL: ${{ steps.deploy.outputs.url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          response="$(curl \
+            --fail \
+            --silent \
+            --show-error \
+            --retry 5 \
+            --retry-delay 5 \
+            --connect-timeout 10 \
+            --max-time 30 \
+            "${SERVICE_URL}/health")"
+
+          [[ "$response" == '{"status":"ok"}' ]]
+
+      - name: Record deployment result
+        shell: bash
+        run: |
+          {
+            echo "### API deployment complete"
+            echo ""
+            echo "- Previous ready revision: \`${{ steps.before.outputs.revision }}\`"
+            echo "- New ready revision: \`${{ steps.deploy.outputs.revision }}\`"
+            echo "- Image: \`${IMAGE_URI}:${IMAGE_TAG}\`"
+            echo "- Health: ${{ steps.deploy.outputs.url }}/health"
+          } >> "$GITHUB_STEP_SUMMARY"
